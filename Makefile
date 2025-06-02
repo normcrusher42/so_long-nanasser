@@ -26,7 +26,7 @@ OBJ = $(SRC:%.c=$(OBJ_PATH)%.o)
 
 # Compiler n flags
 CC		=		cc
-CFLAGS	= -Wall -Werror -Wextra
+CFLAGS	= -Wall -Werror -Wextra -I.
 
 # Compiler colors ✨
 RED=\033[0;31m
