@@ -1,14 +1,3 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/05/21 03:45:40 by marvin            #+#    #+#              #
-#    Updated: 2025/05/30 02:56:12 by marvin           ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
 
 # Object and source path directories
 OBJ_PATH = obj/
@@ -19,7 +8,7 @@ NAME = so_long
 LIBFT = $(LIBFT_PATH)libft.a
 
 # Program sauce files
-SRC = 
+SRC = ./so_long.c 
 
 # Object files
 OBJ = $(SRC:%.c=$(OBJ_PATH)%.o)
@@ -27,6 +16,21 @@ OBJ = $(SRC:%.c=$(OBJ_PATH)%.o)
 # Compiler n flags
 CC		=		cc
 CFLAGS	= -Wall -Werror -Wextra -I.
+
+ifeq ($(shell uname), Linux)
+	INCLUDES = -I/usr/include -Imlx
+else
+	INCLUDES = -I/opt/X11/include -Imlx
+endif
+
+MLX_DIR = ./mlx
+MLX_LIB = $(MLX_DIR)/libmlx_$(UNAME).a
+
+ifeq ($(shell uname), Linux)
+	MLX_FLAGS = -Lmlx -lmlx -L/usr/lib/X11 -lXext -lX11
+else
+	MLX_FLAGS = -Lmlx -lmlx -L/usr/X11/lib -lXext -lX11 -framework OpenGL -framework AppKit
+endif
 
 # Compiler colors ✨
 RED=\033[0;31m
@@ -76,9 +80,28 @@ SPINNERLIB = \
 		done; \
 		printf "\r\033[K$(WHITE)libft is $(BGREEN)ready! ✅\033[0m\n"; \
 	)
+# Compiler loading animation for minilibx
+SPINNERMLX = \
+	( \
+		i=0; \
+		while kill -0 $$! 2>/dev/null; do \
+			case $$((i % 6)) in \
+				0) c="\033[0;31m|" ;; \
+				1) c="\033[0;33m/" ;; \
+				2) c="\033[0;32m-" ;; \
+				3) c="\033[0;36m\\" ;; \
+				4) c="\033[0;34m|" ;; \
+				5) c="\033[0;35m/" ;; \
+			esac; \
+			printf "\r$(WHITE)minilibx Make on the way... $$c"; \
+			i=$$(expr $$i + 1); \
+			sleep 0.1; \
+		done; \
+		printf "\r\033[K$(WHITE)minilibx is $(BGREEN)ready! ✅\033[0m\n"; \
+	)
 
 # Build magicc
-all: $(NAME)
+all: $(NAME) $(MLX_LIB)
 
 $(NAME): $(LIBFT) $(OBJ_PATH) $(OBJ)
 	@{ \
@@ -92,8 +115,14 @@ $(LIBFT):
 	} & \
 	$(SPINNERLIB)
 
+$(MLX_LIB):
+	@{ \
+		make -C $(MLX_DIR); \
+	} & \
+	$(SPINNERMLX)
+
 $(OBJ_PATH)%.o : %.c
-	@$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 $(OBJ_PATH):
 	@mkdir -p $(OBJ_PATH)

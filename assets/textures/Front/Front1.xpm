@@ -1,4 +1,5 @@
 /* XPM */
+<<<<<<< HEAD
 static char *result[] = {
 /* columns rows colors chars-per-pixel */
 "32 48 32 1 ",
@@ -34,6 +35,26 @@ static char *result[] = {
 "q c black",
 "w c black",
 "e c black",
+=======
+static char *results[] = {
+/* columns rows colors chars-per-pixel */
+"32 48 15 1 ",
+"  c None",
+". c black",
+"X c #1E110F",
+"o c #2F1F12",
+"O c #4B312D",
+"+ c #49312E",
+"@ c #234C69",
+"# c #25516E",
+"$ c #784040",
+"% c #D89070",
+"& c #D89870",
+"* c #C7B5A1",
+"= c #F0C08F",
+"- c #F0C098",
+"; c #F8D8B8",
+>>>>>>> 6f5eab2 (fixed up the makefile a bit + added textures!)
 /* pixels */
 "                                ",
 "                                ",
@@ -51,6 +72,7 @@ static char *result[] = {
 "                                ",
 "                                ",
 "                                ",
+<<<<<<< HEAD
 "                                ",
 "                                ",
 "          ............          ",
@@ -83,4 +105,38 @@ static char *result[] = {
 "      --++,,,,++++    ++++      ",
 "          ++++                  ",
 "          ++++                  "
+=======
+"          OOOOOOOOOOOO          ",
+"          OOOOOOOOOOOO          ",
+"        OOOOOOOOOOOOOOOO        ",
+"        OOOOOOOOOOOOOOOO        ",
+"      OOOOOOOOOOOOOOOOOOOO      ",
+"      OOOOOOOOOOOOOOOOOOOO      ",
+"    OOOOOOOOOOOOOOOOOOOOOOOO    ",
+"    OOOOOOOOOOOOOOOOOOOOOOOO    ",
+"    OOOOOOOO----OOOOOOOOOOOO    ",
+"    OOOOOOOO----OOOOOOOOOOOO    ",
+"    OOOO--OO--;;;;;;OOOOOOOO    ",
+"    OOOO--OO--;;;;;;OOOOOOOO    ",
+"    OOOOOO--..;;;;..--OOOOOO    ",
+"    OOOOOO--..;;;;..--OOOOOO    ",
+"  OOOOOO%%&&XX----XX&&OOOOOOOO  ",
+"  OOOOOO%%&&XX----XX&&OOOOOOOO  ",
+"    OOOO..$$&&&&&&&&$$..OOOO    ",
+"    OOOO..$$&&&&&&&&$$..OOOO    ",
+"      OO@@@@........@@@@OO      ",
+"      OO@@@@........@@@@OO      ",
+"    ..******##@@@@##******..    ",
+"    ..******##@@@@##******..    ",
+"  ..&&&&..oooooooooooo..&&&&..  ",
+"  ..&&&&..oooooooooooo..&&&&..  ",
+"    ....oo************oo....    ",
+"    ....oo************oo....    ",
+"      @@..====....====..@@      ",
+"      @@..====....====..@@      ",
+"      ##@@....@@@@....##@@      ",
+"      ##@@....@@@@....##@@      ",
+"                                ",
+"                                "
+>>>>>>> 6f5eab2 (fixed up the makefile a bit + added textures!)
 };

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 static char *result[] = {
 /* columns rows colors chars-per-pixel */
@@ -34,6 +35,24 @@ static char *result[] = {
 "q c black",
 "w c black",
 "e c black",
+=======
+/* XPM */
+static char *results[] = {
+/* columns rows colors chars-per-pixel */
+"32 48 12 1 ",
+"  c None",
+". c black",
+"X c #2E1E1C",
+"o c #4B312D",
+"O c #4F342F",
+"+ c #593A36",
+"@ c #1B3A4D",
+"# c #214861",
+"$ c #244F69",
+"% c #25516E",
+"& c #275673",
+"* c #D89870",
+>>>>>>> 6f5eab2 (fixed up the makefile a bit + added textures!)
 /* pixels */
 "                                ",
 "                                ",
@@ -53,6 +72,7 @@ static char *result[] = {
 "                                ",
 "                                ",
 "                                ",
+<<<<<<< HEAD
 "          ............          ",
 "          ............          ",
 "        ................        ",
@@ -83,4 +103,36 @@ static char *result[] = {
 "      ++++    ++++,,,,++&&      ",
 "                  ++++          ",
 "                  ++++          "
+=======
+"          XXXXXXXXXXXX          ",
+"          XXXXXXXXXXXX          ",
+"        XXooOOOOOOOOooXX        ",
+"        XXooOOOOOOOOooXX        ",
+"      XXooooooOOOOooooooXX      ",
+"      XXooooooOOOOooooooXX      ",
+"    XXooOOooooOOOOooooOOooXX    ",
+"    XXooOOooooOOOOooooOOooXX    ",
+"    XXOO++ooOOooooOOoo++OOXX    ",
+"    XXOO++ooOOooooOOoo++OOXX    ",
+"    XX++oo++OOooooOO++oo++XX    ",
+"    XX++oo++OOooooOO++oo++XX    ",
+"    XXOOooOO++OOOO++OOooOOXX    ",
+"    XXOOooOO++OOOO++OOooOOXX    ",
+"  XXOOooOO++oooooooo++OOooOOXX  ",
+"  XXOOooOO++oooooooo++OOooOOXX  ",
+"    ++oo++ooOO++++OOoo++oo++    ",
+"    ++oo++ooOO++++OOoo++oo++    ",
+"  ..**++%%%%ooOOOOoo%%%%++      ",
+"  ..**++%%%%ooOOOOoo%%%%++      ",
+"  ..**@@oooo++####++oooo@@      ",
+"  ..**@@oooo++####++oooo@@      ",
+"    ..@@&&$$##&&&&##$$&&@@      ",
+"    ..@@&&$$##&&&&##$$&&@@      ",
+"      @@$$$$$$&&&&$$$$$$@@..    ",
+"      @@$$$$$$&&&&$$$$$$@@..    ",
+"        ..&&&&&&&&&&&&....      ",
+"        ..&&&&&&&&&&&&....      ",
+"          ....                  ",
+"          ....                  "
+>>>>>>> 6f5eab2 (fixed up the makefile a bit + added textures!)
 };
