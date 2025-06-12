@@ -1,14 +1,15 @@
-
 # Object and source path directories
 OBJ_PATH = obj/
 LIBFT_PATH = libft/
+MLX_DIR = ./mlx
 
 # Program & build names
 NAME = so_long
 LIBFT = $(LIBFT_PATH)libft.a
+MLX_LIB = $(MLX_DIR)/libmlx.a
 
 # Program sauce files
-SRC = ./so_long.c 
+SRC = main.c
 
 # Object files
 OBJ = $(SRC:%.c=$(OBJ_PATH)%.o)
@@ -22,9 +23,6 @@ ifeq ($(shell uname), Linux)
 else
 	INCLUDES = -I/opt/X11/include -Imlx
 endif
-
-MLX_DIR = ./mlx
-MLX_LIB = $(MLX_DIR)/libmlx_$(UNAME).a
 
 ifeq ($(shell uname), Linux)
 	MLX_FLAGS = -Lmlx -lmlx -L/usr/lib/X11 -lXext -lX11
@@ -101,17 +99,17 @@ SPINNERMLX = \
 	)
 
 # Build magicc
-all: $(NAME) $(MLX_LIB)
+all: $(OBJ_PATH) $(LIBFT) $(MLX_LIB) $(NAME)
 
-$(NAME): $(LIBFT) $(OBJ_PATH) $(OBJ)
+$(NAME): $(OBJ) $(LIBFT) $(MLX_LIB)
 	@{ \
-		$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME); \
+		$(CC) $(CFLAGS) $(OBJ) $(MLX_FLAGS) $(LIBFT) -o $(NAME); \
 	} & \
 	$(SPINNER)
 
 $(LIBFT):
 	@{ \
-		make -C $(LIBFT_PATH) all; \
+		make -C $(LIBFT_PATH); \
 	} & \
 	$(SPINNERLIB)
 
@@ -130,12 +128,13 @@ $(OBJ_PATH):
 clean:
 	@rm -rf $(OBJ_PATH)
 	@make clean -C $(LIBFT_PATH)
+	@make clean -C $(MLX_DIR)
 	@echo "$(BGREEN)cleaned like the blackhole you're getting if you DON'T GET TO COOKING$(WHITE)"
 
 fclean: clean
 	@rm -f $(NAME)
 	@rm -f $(LIBFT)
 
-re: fclean $(NAME)
+re: fclean all
 
 .PHONY: all clean fclean re

@@ -38,16 +38,18 @@ OBJ_DIR = obj
 OBJ	= $(addprefix $(OBJ_DIR)/,$(SRC:%.c=%.o))
 CFLAGS	= -O3 -I$(INC)
 
+MAKEFLAGS += --no-print-directory
+
 all	: $(NAME)
 
 $(OBJ_DIR)/%.o: %.c
 	@mkdir -p $(OBJ_DIR)
-	$(CC) $(CFLAGS) $(IFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) $(IFLAGS) -c $< -o $@
 
 $(NAME)	: $(OBJ)
-	ar -r $(NAME) $(OBJ)
-	ranlib $(NAME)
-	cp $(NAME) $(NAME_UNAME)
+	@ar -r $(NAME) $(OBJ)
+	@ranlib $(NAME)
+	@cp $(NAME) $(NAME_UNAME)
 
 check: all
 	@test/run_tests.sh
@@ -61,6 +63,6 @@ show:
 	@printf "OBJ		:\n	$(OBJ)\n"
 
 clean	:
-	rm -rf $(OBJ_DIR)/ $(NAME) $(NAME_UNAME) *~ core *.core
+	@rm -rf $(OBJ_DIR)/ $(NAME) $(NAME_UNAME) *~ core *.core
 
 .PHONY: all check show clean

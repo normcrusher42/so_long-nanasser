@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nanasser <nanasser@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 18:46:35 by nanasser          #+#    #+#             */
-/*   Updated: 2025/04/21 20:04:18 by nanasser         ###   ########.fr       */
+/*   Updated: 2025/06/12 16:52:13 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void	cleanup(t_list **list)
+void	cleanup(t_listt **list)
 {
-	t_list	*new_node;
-	t_list	*last_node;
+	t_listt	*new_node;
+	t_listt	*last_node;
 	int		i;
 	int		n;
 	char	*buf;
@@ -23,7 +23,7 @@ void	cleanup(t_list **list)
 	n = 0;
 	i = 0;
 	buf = malloc(BUFFER_SIZE + 1);
-	new_node = malloc(sizeof(t_list));
+	new_node = malloc(sizeof(t_listt));
 	if (!new_node || !buf)
 		return ;
 	last_node = ft_lstlast_gnl(*list);
@@ -37,7 +37,7 @@ void	cleanup(t_list **list)
 	ft_lstclear_gnl(list, new_node, buf);
 }
 
-char	*get_line(t_list *list)
+char	*get_line(t_listt *list)
 {
 	int		len;
 	char	*next_str;
@@ -56,12 +56,12 @@ char	*get_line(t_list *list)
 	return (next_str);
 }
 
-void	ft_lstjoin(t_list **list, char *buf)
+void	ft_lstjoin(t_listt **list, char *buf)
 {
-	t_list	*new_node;
-	t_list	*last_node;
+	t_listt	*new_node;
+	t_listt	*last_node;
 
-	new_node = malloc(sizeof(t_list));
+	new_node = malloc(sizeof(t_listt));
 	last_node = ft_lstlast_gnl(*list);
 	if (!new_node)
 		return ;
@@ -73,7 +73,7 @@ void	ft_lstjoin(t_list **list, char *buf)
 	new_node -> next = NULL;
 }
 
-void	new_lst(t_list **list, int fd)
+void	new_lst(t_listt **list, int fd)
 {
 	ssize_t		len;
 	char		*buf;
@@ -97,7 +97,7 @@ void	new_lst(t_list **list, int fd)
 char	*get_next_line(int fd)
 {
 	char			*the_line;
-	static t_list	*list = NULL;
+	static t_listt	*list = NULL;
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 	{

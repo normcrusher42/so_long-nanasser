@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nanasser <nanasser@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 18:46:36 by nanasser          #+#    #+#             */
-/*   Updated: 2025/04/21 20:03:34 by nanasser         ###   ########.fr       */
+/*   Updated: 2025/06/12 16:52:13 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-t_list	*ft_lstlast_gnl(t_list *lst)
+t_listt	*ft_lstlast_gnl(t_listt *lst)
 {
 	if (!lst)
 		return (NULL);
@@ -23,10 +23,10 @@ t_list	*ft_lstlast_gnl(t_list *lst)
 	return (lst);
 }
 
-void	ft_lstclear_gnl(t_list **lst, t_list *new_node, char *buf)
+void	ft_lstclear_gnl(t_listt **lst, t_listt *new_node, char *buf)
 {
-	t_list	*move;
-	t_list	*temp;
+	t_listt	*move;
+	t_listt	*temp;
 
 	if (!*lst)
 		return ;
@@ -51,7 +51,7 @@ void	ft_lstclear_gnl(t_list **lst, t_list *new_node, char *buf)
 	}
 }
 
-int	find_newline(t_list *list)
+int	find_newline(t_listt *list)
 {
 	int	i;
 
@@ -71,7 +71,7 @@ int	find_newline(t_list *list)
 	return (0);
 }
 
-int	len_to_nline(t_list *list)
+int	len_to_nline(t_listt *list)
 {
 	int	i;
 	int	len;
@@ -94,7 +94,7 @@ int	len_to_nline(t_list *list)
 	return (len);
 }
 
-void	str_cpy(t_list *list, char *str)
+void	str_cpy(t_listt *list, char *str)
 {
 	int	i;
 	int	n;
