@@ -9,7 +9,7 @@ LIBFT = $(LIBFT_PATH)libft.a
 MLX_LIB = $(MLX_DIR)/libmlx.a
 
 # Program sauce files
-SRC = main.c
+SRC = ./main.c map_parsing.c \
 
 # Object files
 OBJ = $(SRC:%.c=$(OBJ_PATH)%.o)

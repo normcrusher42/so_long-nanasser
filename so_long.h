@@ -6,6 +6,9 @@
 # include "libft/ft_printf/ft_printf.h"
 # include "mlx/mlx.h"
 
+// Error Handlers //
+void	error_out(char error_sign);
+
 typedef struct s_data
 {
 	void		*mlx_ptr;
