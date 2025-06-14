@@ -9,14 +9,14 @@ LIBFT = $(LIBFT_PATH)libft.a
 MLX_LIB = $(MLX_DIR)/libmlx.a
 
 # Program sauce files
-SRC = ./main.c map_parsing.c \
+SRC = ./main.c map_parser.c error_handler.c \
 
 # Object files
 OBJ = $(SRC:%.c=$(OBJ_PATH)%.o)
 
 # Compiler n flags
 CC		=		cc
-CFLAGS	= -Wall -Werror -Wextra -I.
+CFLAGS	= -Wall -Werror -Wextra -g -I.
 
 ifeq ($(shell uname), Linux)
 	INCLUDES = -I/usr/include -Imlx

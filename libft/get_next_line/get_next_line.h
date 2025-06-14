@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 18:46:33 by nanasser          #+#    #+#             */
-/*   Updated: 2025/06/12 16:52:13 by marvin           ###   ########.fr       */
+/*   Updated: 2025/06/14 15:08:20 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <limits.h>
-# include <stdio.h>
 
 // Singly Linked list struct
 typedef struct s_listt

@@ -8,16 +8,41 @@
 // 	return (0);
 // }
 
-int	main(void)
-{
-	t_data	data;
+// int	main(void)
+// {
+// 	t_data	data;
 
-	data.mlx_ptr = mlx_init();
-	if (!data.mlx_ptr)
-		return (1);
-	data.win_ptr = mlx_new_window(data.mlx_ptr, 600, 800, "ITS ALIIIIIIVE >:D");
-	if (!data.win_ptr)
-		return (free(data.mlx_ptr), 1);
-	mlx_loop(data.mlx_ptr);
-	// mlx_hook(data.win_ptr, )
+// 	data.mlx_ptr = mlx_init();
+// 	if (!data.mlx_ptr)
+// 		return (1);
+// 	data.win_ptr = mlx_new_window(data.mlx_ptr, 600, 800, "ITS ALIIIIIIVE >:D");
+// 	if (!data.win_ptr)
+// 		return (free(data.mlx_ptr), 1);
+// 	mlx_loop(data.mlx_ptr);
+// 	// mlx_hook(data.win_ptr, )
+// }
+
+void	free_map(char **map)
+{
+	int i;
+
+	i = 0;
+	while (map[i])
+		free(map[i++]);
+	free(map);
+}
+
+int	main(int ac, char **av)
+{
+	if (ac == 2)
+	{
+		int i = 0;
+		char **map = map_reader(av[1]);
+		if (!map)
+			error_out('m');
+		while (map[i])
+			ft_printf("%s\n", map[i++]);
+		free_map(map);
+	}
+	return (0);
 }
