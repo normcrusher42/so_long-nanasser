@@ -90,6 +90,7 @@ static void	check_line(char *line)
 	if (map_len != row_len)
 		error_out('x');
 }
+
 // Reallocates map parsing
 char	**map_update(char **map, char *line, int size)
 {
