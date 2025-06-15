@@ -1,90 +1,7 @@
 #include "so_long.h"
 
-char	**dup_map(char **map)
-{
-	int		i;
-	char	**map_cpy;
-
-	i = 0;
-	while (map[i])
-		i++;
-	map_cpy = malloc(sizeof(char *) * (i + 1));
-	if (!map_cpy)
-		error_out('M', map, NULL, -1);
-	i = 0;
-	while (map[i])
-		map_cpy[i] = ft_strdup(map[i]);
-	map_cpy[i] = NULL;
-	return (map_cpy);
-}
-
-void	flood_fill(char **map, int x, int y)
-{
-	if (map[y][x] == '1' || map[y][x] == 'X')
-		return ;
-	map[y][x] = 'X';
-	flood_fill(map, x + 1, y);
-	flood_fill(map, x - 1, y);
-	flood_fill(map, x, y + 1);
-	flood_fill(map, x, y - 1);
-}
-
-void	path_validator(char **map)
-{
-	int	i;
-	int	j;
-	int
-
-	i = -1;
-	while (map[++i])
-	{
-		j = 0;
-		while (map[i][j++])
-		{
-			if (map[i][j] == 'P')
-			{
-				
-			}
-		}
-	}
-}
-
-static void	map_validity(char **map)
-{
-	int	i;
-	size_t	j;
-	size_t	end;
-
-	i = -1;
-	end = ft_strlen(map[0]);
-	while (map[++i])
-	{
-		j = 0;
-		if (i == 0 || !map[i + 1])
-		{
-			while (j < end)
-			{
-				if (map[i][j++] != '1')
-					error_out('1', map, NULL, -1);
-			}
-		}
-		else if (map[i][0] != '1' || map[i][end - 1] != '1')
-			error_out('1', map, NULL, -1);
-	}
-}
-
-// Checks if the filetype is '.ber'
-int	filetype_check(char *filename)
-{
-	int	len;
-
-	len = ft_strlen(filename) - 4;
-	if (len < 5 || ft_strncmp(&filename[len], ".ber", 4) != 0)
-		return (0);
-	return (1);
-}
-
-void	del_newline(char *line)
+// Deletes \n & \r at end of string
+static void	del_newline(char *line)
 {
 	size_t		len;
 
@@ -95,7 +12,7 @@ void	del_newline(char *line)
 		line[len - 1] = '\0';
 }
 
-// Deletes \n & \r at end of string and checks if its rectangular (and while including the right characters)
+// Checks if map is rectangular with right charactes
 static void	check_line(char *line, char **map, int fd)
 {
 	static int	map_len = -1;
@@ -121,7 +38,7 @@ static void	check_line(char *line, char **map, int fd)
 }
 
 // Reallocates map parsing
-char	**map_update(char **map, char *line, int size)
+static char	**map_update(char **map, char *line, int size)
 {
 	int		i;
 	char	**new_map;
@@ -146,7 +63,7 @@ char	**map_update(char **map, char *line, int size)
 	return (new_map);
 }
 
-void	map_de_map(char *line, char ***map, int *height, int fd)
+static void	map_de_map(char *line, char ***map, int *height, int fd)
 {
 	char	**updated;
 
@@ -180,7 +97,7 @@ char	**map_reader(char *file_path)
 	}
 	if (height == 0 || !map)
 		error_out('H', NULL, line, fd);
-	map_validity(map);
+	validate_map(map);
 	close(fd);
 	return (map);
 }

@@ -53,7 +53,7 @@ int	main(int ac, char **av)
 	if (ac == 2)
 	{
 		i = 0;
-		char = map_reader(av[1]);
+		map = map_reader(av[1]);
 		if (!map)
 			error_out('M', NULL, NULL, -1);
 		while (map[i])
