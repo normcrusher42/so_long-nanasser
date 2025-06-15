@@ -10,7 +10,7 @@ char	**dup_map(char **map)
 		i++;
 	map_cpy = malloc(sizeof(char *) * (i + 1));
 	if (!map_cpy)
-		error_out('m');
+		error_out('M', map, NULL, -1);
 	i = 0;
 	while (map[i])
 		map_cpy[i] = ft_strdup(map[i]);
@@ -18,28 +18,58 @@ char	**dup_map(char **map)
 	return (map_cpy);
 }
 
-void	map_validity(char **map)
+void	flood_fill(char **map, int x, int y)
+{
+	if (map[y][x] == '1' || map[y][x] == 'X')
+		return ;
+	map[y][x] = 'X';
+	flood_fill(map, x + 1, y);
+	flood_fill(map, x - 1, y);
+	flood_fill(map, x, y + 1);
+	flood_fill(map, x, y - 1);
+}
+
+void	path_validator(char **map)
 {
 	int	i;
 	int	j;
-	int	end;
+	int
 
 	i = -1;
-	j = 0;
+	while (map[++i])
+	{
+		j = 0;
+		while (map[i][j++])
+		{
+			if (map[i][j] == 'P')
+			{
+				
+			}
+		}
+	}
+}
+
+static void	map_validity(char **map)
+{
+	int	i;
+	size_t	j;
+	size_t	end;
+
+	i = -1;
 	end = ft_strlen(map[0]);
 	while (map[++i])
 	{
 		j = 0;
-		if (i == 0 || map[i + 1] != NULL)
+		if (i == 0 || !map[i + 1])
 		{
 			while (j < end)
 			{
 				if (map[i][j++] != '1')
-					error_out('m'); // <---- I give up just handle the fucking leaks later
+					error_out('1', map, NULL, -1);
 			}
 		}
 		else if (map[i][0] != '1' || map[i][end - 1] != '1')
-			error_out('m');
+			error_out('1', map, NULL, -1);
 	}
 }
 
@@ -66,12 +96,11 @@ void	del_newline(char *line)
 }
 
 // Deletes \n & \r at end of string and checks if its rectangular (and while including the right characters)
-static void	check_line(char *line)
+static void	check_line(char *line, char **map, int fd)
 {
 	static int	map_len = -1;
 	int			row_len;
 	int			i;
-
 
 	i = -1;
 	row_len = 0;
@@ -80,15 +109,15 @@ static void	check_line(char *line)
 	{
 		if (line[i] != '0' && line[i] != '1' && line[i] != 'P' && line[i] != 'E'
 			&& line[i] != 'C')
-			error_out('l');
+			error_out('L', map, line, fd);
 		row_len++;
 	}
 	if (row_len == 0)
-		error_out('h');
+		error_out('H', map, line, fd);
 	else if (map_len == -1)
 		map_len = row_len;
 	if (map_len != row_len)
-		error_out('x');
+		error_out('X', map, line, fd);
 }
 
 // Reallocates map parsing
@@ -107,21 +136,24 @@ char	**map_update(char **map, char *line, int size)
 		i++;
 	}
 	if (!line)
+	{
+		free_map(new_map, NULL, -1);
 		return (NULL);
+	}
 	new_map[i++] = ft_strdup(line);
 	new_map[i] = NULL;
 	free(map);
 	return (new_map);
 }
 
-void	map_de_map(char *line, char ***map, int *height)
+void	map_de_map(char *line, char ***map, int *height, int fd)
 {
 	char	**updated;
 
-	check_line(line);
+	check_line(line, *map, fd);
 	updated = map_update(*map, line, *height);
 	if (!updated)
-		error_out('m');
+		error_out('M', *map, line, fd);
 	*map = updated;
 	(*height)++;
 	free(line);
@@ -139,16 +171,17 @@ char	**map_reader(char *file_path)
 	height = 0;
 	fd = open(file_path, O_RDONLY);
 	if (fd < 0 || filetype_check(file_path) == 0)
-		error_out('d');
+		error_out('D', NULL, NULL, -1);
 	line = get_next_line(fd);
 	while (line)
 	{
-		map_de_map(line, &map, &height);
+		map_de_map(line, &map, &height, fd);
 		line = get_next_line(fd);
 	}
-	close(fd);
 	if (height == 0 || !map)
-		error_out('h');
+		error_out('H', NULL, line, fd);
+	map_validity(map);
+	close(fd);
 	return (map);
 }
 

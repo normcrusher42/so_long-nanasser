@@ -22,27 +22,43 @@
 // 	// mlx_hook(data.win_ptr, )
 // }
 
-void	free_map(char **map)
+void	free_map(char **map, char *line, int fd)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while (map[i])
-		free(map[i++]);
-	free(map);
+	if (line)
+	{
+		free(line);
+		line = get_next_line(fd);
+		while (line)
+		{
+			free(line);
+			line = get_next_line(fd);
+		}
+	}
+	if (map)
+	{
+		while (map[i])
+			free(map[i++]);
+		free(map);
+	}
 }
 
 int	main(int ac, char **av)
 {
+	int		i;
+	char	**map;
+
 	if (ac == 2)
 	{
-		int i = 0;
-		char **map = map_reader(av[1]);
+		i = 0;
+		char = map_reader(av[1]);
 		if (!map)
-			error_out('m');
+			error_out('M', NULL, NULL, -1);
 		while (map[i])
 			ft_printf("%s\n", map[i++]);
-		free_map(map);
+		free_map(map, NULL, -1);
 	}
 	return (0);
 }

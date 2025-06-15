@@ -8,9 +8,10 @@
 # include "mlx/mlx.h"
 
 // Error Handlers //
-void	error_out(char error_sign);
+void	error_out(char error_sign, char **map, char *line, int fd);
 char	**map_reader(char *file_path);
 char	**map_update(char **map, char *line, int size);
+void	free_map(char **map, char *line, int fd);
 
 // typedef struct s_data
 // {
