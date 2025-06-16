@@ -1,9 +1,34 @@
 #include "so_long.h"
 
-void	error_out(char error_sign, char **map, char *line, int fd)
+void	free_map(char **map, char *line, int fd, t_data *data)
+{
+	int	i;
+
+	i = 0;
+	if (line)
+	{
+		free(line);
+		line = get_next_line(fd);
+		while (line)
+		{
+			free(line);
+			line = get_next_line(fd);
+		}
+	}
+	if (map)
+	{
+		while (map[i])
+			free(map[i++]);
+		free(map);
+	}
+}
+
+void	error_out(char error_sign, char **map, char *line, int fd, t_data *data)
 {
 	if (error_sign == 'D') // file descriptor failed to open
 		perror("\033[1;31mMap failed to open. Bad input? Typo? Perhaps a SKILL ISSUE");
+	else if (error_sign == 'S') // sprite size parsing failed
+		perror("\033[0;31mGot the right .xpm format m8?");
 	else if (error_sign == 'M') // map failed to allocate
 		perror("\033[1;31mWoops, something went wrong with the process. Maybe try again? Or let Nasser fix his shit code.");
 	else if (error_sign == 'H') // height value too small

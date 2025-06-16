@@ -52,12 +52,12 @@ static void	find_goals(char **map)
 }
 
 // Checks if the filetype is '.ber'
-int	filetype_check(char *filename)
+int	filetype_check(char *file)
 {
 	int	len;
 
-	len = ft_strlen(filename) - 4;
-	if (len < 5 || ft_strncmp(&filename[len], ".ber", 4) != 0)
+	len = ft_strlen(file) - 4;
+	if (len < 5 || ft_strncmp(&file[len], ".ber", 4) != 0)
 		return (0);
 	return (1);
 }

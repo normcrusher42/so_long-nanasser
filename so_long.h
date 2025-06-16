@@ -14,6 +14,20 @@ typedef struct s_map
 	int	x;
 	int	y;
 }	t_map;
+//-----------------------//
+//      MLX tools        //
+//-----------------------//
+typedef struct s_data
+{
+	void		*mlx_ptr;
+	void		*win_ptr;
+	void		*textures[5];
+	int			img_width;
+	int			img_height;
+	int			mapx;
+	int			mapy;
+	char		**map;
+}	t_data;
 
 // Error Handlers //
 void		error_out(char error_sign, char **map, char *line, int fd);
@@ -24,23 +38,16 @@ void		free_map(char **map, char *line, int fd);
 //-----------------------//
 char		**map_reader(char *file_path);
 char		**dup_map(char **map);
+void		tile_size(t_data *data);
+void		get_map_size(t_data *data);
 
 // Map Validator //
-int			filetype_check(char *filename);
+int			filetype_check(char *file);
 void		validate_map(char **map);
 void		find_player(char **map, t_map *coords);
 void		flood_fill(char **map, t_map coords);
 bool		goals_reachable(char **map_cpy);
 void		only_player(char **map);
 
-
-
-// typedef struct s_data
-// {
-// 	void		*mlx_ptr;
-// 	void		*win_ptr;
-// 	void		*textures[5];
-// 	// t_map		*map;
-// }	t_data;
 
 #endif
