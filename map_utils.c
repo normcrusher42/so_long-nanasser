@@ -20,24 +20,15 @@ static void	check_width_height(char *line, t_data *data, int fd)
 	char	**num;
 
 	if (line[0] == '\n')
-	{
-		free(data);
 		error_out('S', data->map, line, -1);
-	}
 	line[0] = ' ';
 	num = ft_split((const char *)line, ' ');
-	if (!num || ft_atoi(num[0]) <= 0 || ft_atoi(num[1]) <= 0)
-	{
-		free(data);
+	if (!num || !num[1] || ft_atoi(num[0]) <= 0 || ft_atoi(num[1]) <= 0)
 		error_out('S', num, line, fd);
-	}
 	data->img_width = ft_atoi(num[0]);
 	data->img_height = ft_atoi(num[1]);
 	if (data->img_width <= 0 || data->img_height <= 0)
-	{
-		free(data);
 		error_out('S', num, line, fd);
-	}
 	free_map(num, NULL, -1);
 }
 
@@ -50,10 +41,7 @@ static void	get_tile_size_from_xpm(char *file, t_data *data)
 	i = 0;
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
-	{
-		free(data);
-		error_out('S', NULL, NULL, -1);
-	}
+		error_out('S', data->map, NULL, -1);
 	while (++i <= 4)
 	{
 		line = get_next_line(fd);
@@ -76,8 +64,5 @@ void	tile_size(t_data *data)
 	data->img_height = 0;
 	get_tile_size_from_xpm("assets/textures/floor.xpm", data);
 	if (data->img_width <= 0 || data->img_height <= 0)
-	{
-		free(data);
 		error_out('S', data->map, NULL, -1);
-	}
 }

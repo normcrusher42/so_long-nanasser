@@ -20,16 +20,15 @@ void	draw_tiles(t_data *data)
 		x = -1;
 		while (data->map[y][++x])
 		{
+			mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->textures[1], x * data->img_width, y * data->img_height);
 			if (data->map[y][x] == 'P')
-				mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->textures[0], x * 50, y * 50);
-			else if (data->map[y][x] == '0')
-				mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->textures[1], x * 50, y * 50);
+				mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->textures[0], x * data->img_width, y * data->img_height);
 			else if (data->map[y][x] == '1')
-				mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->textures[2], x * 50, y * 50);
+				mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->textures[2], x * data->img_width, y * data->img_height);
 			else if (data->map[y][x] == 'C')
-				mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->textures[3], x * 50, y * 50);
+				mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->textures[3], x * data->img_width, y * data->img_height);
 			else if (data->map[y][x] == 'E')
-				mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->textures[4], x * 50, y * 50);
+				mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->textures[4], x * data->img_width, y * data->img_height);
 		}
 		y++;
 	}
@@ -55,10 +54,11 @@ void	ready_window_render(t_data *data)
 		error_out('S', data->map, NULL, -1);
 	}
 	data->textures[0] = mlx_xpm_file_to_image(data->mlx_ptr, "assets/textures/Front/Front0.xpm", &size.playerx, &size.playery);
-	data->textures[1] = mlx_xpm_file_to_image(data->mlx_ptr, "assets/textures/floor.xpm", &size.floorx, &size.floory);
+	data->textures[1] = mlx_xpm_file_to_image(data->mlx_ptr, "assets/textures/floor.xpm", &data->img_height, &data->img_height);
 	data->textures[2] = mlx_xpm_file_to_image(data->mlx_ptr, "assets/textures/wall.xpm", &size.wallx, &size.wally);
 	data->textures[3] = mlx_xpm_file_to_image(data->mlx_ptr, "assets/textures/collectable.xpm", &size.collectablex, &size.collectabley);
 	data->textures[4] = mlx_xpm_file_to_image(data->mlx_ptr, "assets/textures/exit.xpm", &size.exitx, &size.exity);
+	ft_printf("width : [%d]\nheight : [%d]\n", data->img_width, data->img_height);
 	if (!data->textures[0] || !data->textures[1] || !data->textures[2] || !data->textures[3] || !data->textures[4])
 			error_out('S', data->map, NULL, -1);
 	draw_tiles(data);

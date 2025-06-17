@@ -15,6 +15,24 @@ typedef struct s_map
 	int	y;
 }	t_map;
 
+# ifdef __APPLE__
+#  define ESC         53
+#  define UP          126
+#  define DOWN        125
+#  define RIGHT       124
+#  define LEFT        123
+#  define ON_MOUSE_DW 4
+# else
+#  define ESC         65307
+#  define MOUSE_UP    4
+#  define MOUSE_DOWN  5
+#  define UP          65362
+#  define DOWN        65364
+#  define RIGHT       65363
+#  define LEFT        65361
+#  define ON_MOUSE_DW 4
+# endif
+
 typedef struct s_size
 {
 	int			playerx;
@@ -36,7 +54,7 @@ typedef struct s_data
 {
 	void		*mlx_ptr;
 	void		*win_ptr;
-	void		*textures[4];
+	void		*textures[5];
 	int			img_width;
 	int			img_height;
 	int			img_width2;
