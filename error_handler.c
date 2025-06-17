@@ -1,6 +1,6 @@
 #include "so_long.h"
 
-void	free_map(char **map, char *line, int fd, t_data *data)
+void	free_map(char **map, char *line, int fd)
 {
 	int	i;
 
@@ -23,7 +23,7 @@ void	free_map(char **map, char *line, int fd, t_data *data)
 	}
 }
 
-void	error_out(char error_sign, char **map, char *line, int fd, t_data *data)
+void	error_out(char error_sign, char **map, char *line, int fd)
 {
 	if (error_sign == 'D') // file descriptor failed to open
 		perror("\033[1;31mMap failed to open. Bad input? Typo? Perhaps a SKILL ISSUE");

@@ -14,6 +14,21 @@ typedef struct s_map
 	int	x;
 	int	y;
 }	t_map;
+
+typedef struct s_size
+{
+	int			playerx;
+	int			playery;
+	int			floorx;
+	int			floory;
+	int			wallx;
+	int			wally;
+	int			collectablex;
+	int			collectabley;
+	int			exitx;
+	int			exity;
+}	t_size;
+
 //-----------------------//
 //      MLX tools        //
 //-----------------------//
@@ -21,9 +36,11 @@ typedef struct s_data
 {
 	void		*mlx_ptr;
 	void		*win_ptr;
-	void		*textures[5];
+	void		*textures[4];
 	int			img_width;
 	int			img_height;
+	int			img_width2;
+	int			img_height2;
 	int			mapx;
 	int			mapy;
 	char		**map;

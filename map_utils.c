@@ -22,7 +22,7 @@ static void	check_width_height(char *line, t_data *data, int fd)
 	if (line[0] == '\n')
 	{
 		free(data);
-		error_out('S', NULL, line, -1);
+		error_out('S', data->map, line, -1);
 	}
 	line[0] = ' ';
 	num = ft_split((const char *)line, ' ');
@@ -78,6 +78,6 @@ void	tile_size(t_data *data)
 	if (data->img_width <= 0 || data->img_height <= 0)
 	{
 		free(data);
-		error_out('S', NULL, NULL, -1);
+		error_out('S', data->map, NULL, -1);
 	}
 }

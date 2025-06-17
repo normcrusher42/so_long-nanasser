@@ -1,5 +1,5 @@
 /* XPM */
-static char *walls[] = {
+static char *wall[] = {
 /* columns rows colors chars-per-pixel */
 "50 50 102 2 ",
 "   c #30A24E",

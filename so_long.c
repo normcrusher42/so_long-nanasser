@@ -8,6 +8,33 @@
 // 	return (0);
 // }
 
+void	draw_tiles(t_data *data)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	mlx_clear_window(data->mlx_ptr, data->win_ptr);
+	while (data->map[y])
+	{
+		x = -1;
+		while (data->map[y][++x])
+		{
+			if (data->map[y][x] == 'P')
+				mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->textures[0], x * 50, y * 50);
+			else if (data->map[y][x] == '0')
+				mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->textures[1], x * 50, y * 50);
+			else if (data->map[y][x] == '1')
+				mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->textures[2], x * 50, y * 50);
+			else if (data->map[y][x] == 'C')
+				mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->textures[3], x * 50, y * 50);
+			else if (data->map[y][x] == 'E')
+				mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->textures[4], x * 50, y * 50);
+		}
+		y++;
+	}
+}
+
 void	ready_map(t_data *data, char *file)
 {
 	data->map = map_reader(file);
@@ -17,14 +44,24 @@ void	ready_map(t_data *data, char *file)
 
 void	ready_window_render(t_data *data)
 {
+	t_size	size;
+
 	tile_size(data);
 	get_map_size(data);
 	data->win_ptr = mlx_new_window(data->mlx_ptr, data->img_width * data->mapx, data->img_height * data->mapy, "ITS ALIIIIIIVE >:D");
-	// data->textures[0] = mlx_xpm_file_to_image(data->mlx_ptr, "assets/textures/Front/Front0.xpm", &data->img_width, &data->img_height);
-	// data->textures[1] = mlx_xpm_file_to_image(data->mlx_ptr, "assets/textures/floor.xpm", &data->img_width, &data->img_height);
-	// data->textures[2] = mlx_xpm_file_to_image(data->mlx_ptr, "assets/textures/walls.xpm", &data->img_width, &data->img_height);
-	// if (!data.textures[0] || !data.textures[0])
-	// 		return (1);
+	if (!data->win_ptr)
+	{
+		free(data->mlx_ptr);
+		error_out('S', data->map, NULL, -1);
+	}
+	data->textures[0] = mlx_xpm_file_to_image(data->mlx_ptr, "assets/textures/Front/Front0.xpm", &size.playerx, &size.playery);
+	data->textures[1] = mlx_xpm_file_to_image(data->mlx_ptr, "assets/textures/floor.xpm", &size.floorx, &size.floory);
+	data->textures[2] = mlx_xpm_file_to_image(data->mlx_ptr, "assets/textures/wall.xpm", &size.wallx, &size.wally);
+	data->textures[3] = mlx_xpm_file_to_image(data->mlx_ptr, "assets/textures/collectable.xpm", &size.collectablex, &size.collectabley);
+	data->textures[4] = mlx_xpm_file_to_image(data->mlx_ptr, "assets/textures/exit.xpm", &size.exitx, &size.exity);
+	if (!data->textures[0] || !data->textures[1] || !data->textures[2] || !data->textures[3] || !data->textures[4])
+			error_out('S', data->map, NULL, -1);
+	draw_tiles(data);
 }
 
 int	main(int ac, char **av)
@@ -38,13 +75,14 @@ int	main(int ac, char **av)
 			return (1);
 		ready_map(&data, av[1]);
 		ready_window_render(&data);
-		if (!data.win_ptr)
-			return (free(data.mlx_ptr), 1);
 		mlx_loop(data.mlx_ptr);
+		free(data.mlx_ptr);
+		free(data.win_ptr);
+		free_map(data.map, NULL, -1);
 		return (0);
 	}
 	else
-		perror("skill issue LMFAOOO");
+		perror("skill issue LMFAOOO\n");
 	return (1);
 }
 
