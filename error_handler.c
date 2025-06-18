@@ -51,3 +51,36 @@ void	error_out(char error_sign, char **map, char *line, int fd)
 		free_map(map, NULL, -1);
 	exit(1);
 }
+
+void	clean_sprites(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	if (data->textures[0])
+	{
+		while (i < 5)
+		mlx_destroy_image(data->mlx_ptr, data->textures[i++]);
+	}
+}
+
+void	exit_cleanup(t_data *data)
+{
+	clean_sprites(data);
+	if (data->win_ptr && data->mlx_ptr)
+		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
+	if (data->mlx_ptr)
+	{
+		mlx_destroy_display(data->mlx_ptr);
+		free(data->mlx_ptr);
+	}
+	free_map(data->map, NULL, -1);
+	exit(0);
+}
+
+int	close_window(t_data *data)
+{
+	// mlx_clear_window(data->mlx_ptr, data->win_ptr);
+	exit_cleanup(data);
+	return (0);
+}

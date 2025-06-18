@@ -77,7 +77,7 @@ static void	map_de_map(char *line, char ***map, int *height, int fd)
 }
 
 // The main map parser
-char	**map_reader(char *file_path)
+char	**map_reader(char *file_path, t_data *data)
 {
 	int		fd;
 	int		height;
@@ -97,20 +97,9 @@ char	**map_reader(char *file_path)
 	}
 	if (height == 0 || !map)
 		error_out('H', NULL, line, fd);
-	validate_map(map);
+	validate_map(map, data);
 	close(fd);
 	return (map);
 }
 
-// if (all_collectables_collected && exit_count == 1)
-// 	return map_valid;
-// if (on_wall)
-// 	return map_invalid;
-// if (on_collectable)
-// 	collectables++;
-// if (on_exit)
-// 	exits++;
-// replace_current_position_with_wall;
-// if (one_of_the_four_adjacent_directions_is_possible)
-// 	return map_valid;
-// return map_invalid;
+

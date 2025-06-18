@@ -8,28 +8,29 @@
 # include "mlx/mlx.h"
 # include <stdbool.h>
 
-// Map position //
-typedef struct s_map
-{
-	int	x;
-	int	y;
-}	t_map;
-
 # ifdef __APPLE__
-#  define ESC         53
-#  define UP          126
-#  define DOWN        125
-#  define RIGHT       124
-#  define LEFT        123
-#  define ON_MOUSE_DW 4
+#  define ESC			53
+#  define UP			126
+#  define DOWN			125
+#  define RIGHT			124
+#  define LEFT			123
+#  define W				13
+#  define A				0
+#  define S				1
+#  define D				2
+#  define ON_MOUSE_DW	4
 # else
-#  define ESC         65307
-#  define MOUSE_UP    4
-#  define MOUSE_DOWN  5
-#  define UP          65362
-#  define DOWN        65364
-#  define RIGHT       65363
-#  define LEFT        65361
+#  define ESC			65307
+#  define MOUSE_UP		4
+#  define MOUSE_DOWN	5
+#  define UP			65362
+#  define DOWN			65364
+#  define RIGHT			65363
+#  define LEFT			65361
+#  define W				119
+#  define A				97
+#  define S				115
+#  define D				100
 #  define ON_MOUSE_DW 4
 # endif
 
@@ -57,30 +58,36 @@ typedef struct s_data
 	void		*textures[5];
 	int			img_width;
 	int			img_height;
-	int			img_width2;
-	int			img_height2;
 	int			mapx;
 	int			mapy;
+	int			playerx;
+	int			playery;
+	int			collectable;
+	int			moves;
+	int			movedelay;
+	int			moveready;
 	char		**map;
 }	t_data;
 
 // Error Handlers //
 void		error_out(char error_sign, char **map, char *line, int fd);
 void		free_map(char **map, char *line, int fd);
+int			close_window(t_data *data);
+
 
 //-----------------------//
 //   Map Parsing tools   //
 //-----------------------//
-char		**map_reader(char *file_path);
+char		**map_reader(char *file_path, t_data *data);
 char		**dup_map(char **map);
 void		tile_size(t_data *data);
 void		get_map_size(t_data *data);
 
 // Map Validator //
 int			filetype_check(char *file);
-void		validate_map(char **map);
-void		find_player(char **map, t_map *coords);
-void		flood_fill(char **map, t_map coords);
+void		validate_map(char **map, t_data *data);
+void		find_player(char **map, t_data *data);
+void		flood_fill(char **map, int x, int y);
 bool		goals_reachable(char **map_cpy);
 void		only_player(char **map);
 

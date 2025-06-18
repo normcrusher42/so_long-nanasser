@@ -20,7 +20,7 @@ char	**dup_map(char **map)
 }
 
 // Fills the map like a bucket of water
-void	flood_fill(char **map, t_map coords)
+void	flood_fill(char **map, int x, int y)
 {
 	int	height;
 	int	width;
@@ -29,25 +29,23 @@ void	flood_fill(char **map, t_map coords)
 	width = ft_strlen(map[0]);
 	while (map[height])
 		height++;
-	if (coords.x < 0 || coords.y < 0 || coords.x >= width || coords.y >= height
-		|| map[coords.y][coords.x] == '1' || map[coords.y][coords.x] == 'X')
+	if (x < 0 || y < 0 || x >= width || y >= height
+		|| map[y][x] == '1' || map[y][x] == 'X')
 		return ;
-	map[coords.y][coords.x] = 'X';
-	flood_fill(map, (t_map){coords.x + 1, coords.y});
-	flood_fill(map, (t_map){coords.x - 1, coords.y});
-	flood_fill(map, (t_map){coords.x, coords.y + 1});
-	flood_fill(map, (t_map){coords.x, coords.y - 1});
+	map[y][x] = 'X';
+	flood_fill(map, x + 1, y);
+	flood_fill(map, x - 1, y);
+	flood_fill(map, x, y + 1);
+	flood_fill(map, x, y - 1);
 }
 
 // Locates (only one of) the player's position for flood_fill to initialize
-void	find_player(char **map, t_map *coords)
+void	find_player(char **map, t_data *data)
 {
 	int	i;
 	int	j;
-	int	player;
 
 	i = -1;
-	player = 0;
 	while (map[++i])
 	{
 		j = 0;
@@ -55,15 +53,15 @@ void	find_player(char **map, t_map *coords)
 		{
 			if (map[i][j] == 'P')
 			{
-				coords->y = i;
-				coords->x = j;
+				data->playery = i;
+				data->playerx = j;
 				only_player(map);
 				return ;
 			}
 			j++;
 		}
 	}
-	if (player == 0 || coords->x == -1 || coords->y == -1)
+	if (data->playerx == -1 || data->playery == -1)
 		error_out('P', map, NULL, -1);
 }
 

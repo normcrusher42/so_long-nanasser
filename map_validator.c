@@ -25,29 +25,28 @@ void	only_player(char **map)
 }
 
 // Checks if collectables and exit condition is valid
-static void	find_goals(char **map)
+static void	find_goals(char **map, t_data *data)
 {
 	int	i;
 	int	j;
-	int	collectable;
 	int	exit;
 
 	i = -1;
 	exit = 0;
-	collectable = 0;
+	data->collectable = 0;
 	while (map[++i])
 	{
 		j = 0;
 		while (map[i][j])
 		{
 			if (map[i][j] == 'C')
-				collectable++;
+				data->collectable++;
 			else if (map[i][j] == 'E')
 				exit++;
 			j++;
 		}
 	}
-	if (collectable == 0 || exit == 0 || exit > 1)
+	if (data->collectable == 0 || exit == 0 || exit > 1)
 		error_out('G', map, NULL, -1);
 }
 
@@ -88,18 +87,15 @@ static void	map_check(char **map)
 }
 
 // The main map validation function for if its playable
-void	validate_map(char **map)
+void	validate_map(char **map, t_data *data)
 {
-	t_map	coords;
 	char	**map_cpy;
 
-	coords.x = -1;
-	coords.y = -1;
 	map_check(map);
-	find_player(map, &coords);
-	find_goals(map);
+	find_player(map, data);
+	find_goals(map, data);
 	map_cpy = dup_map(map);
-	flood_fill(map_cpy, coords);
+	flood_fill(map_cpy, data->playerx, data->playery);
 	if (!goals_reachable(map_cpy))
 	{
 		free_map(map, NULL, -1);
