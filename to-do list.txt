@@ -1,10 +1,23 @@
+Mandatory Part
+--------------
+
 Handle Map Parsing and playability (covering all leak and possible edge-cases) ✅
 Render the game window ✅
 Allow for xpm swapping without hardcoding ✅
-Configure image layering 🚫
-Configure the controls and map update🚫
+Configure image layering ⚠
+Configure the controls and map update 🚫
+Cleanly exit the program 🚫
+---------------
+
+Now for le fun Part
+-------------------
+Sprite animation (in all directions) 🚫
+Smooth movement 🚫
+Sounds and music 🚫
+-------------------
 
 
-stickers for checker:                                            
-✅                                                                 
-🚫
+stickers for checker:
+✅
+
+⚠ - works in certain conditions
