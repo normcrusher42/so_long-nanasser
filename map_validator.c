@@ -93,10 +93,17 @@ void	validate_map(char **map, t_data *data)
 
 	map_check(map);
 	find_player(map, data);
+	find_exit(map, data);
 	find_goals(map, data);
 	map_cpy = dup_map(map);
-	flood_fill(map_cpy, data->playerx, data->playery);
-	if (!goals_reachable(map_cpy))
+	flood_fill(map_cpy, data->playerx, data->playery, 'E', 'X');
+	if (!goals_reachable(map_cpy, 'C'))
+	{
+		free_map(map, NULL, -1);
+		error_out('G', map_cpy, NULL, -1);
+	}
+	flood_fill(map_cpy, data->playerx, data->playery, ' ', ' ');
+	if (!goals_reachable(map_cpy, 'E'))
 	{
 		free_map(map, NULL, -1);
 		error_out('G', map_cpy, NULL, -1);

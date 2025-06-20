@@ -8,6 +8,14 @@
 # include "mlx/mlx.h"
 # include <stdbool.h>
 
+// small Macro for Mac defintion 
+#define IS_MACOS 0
+
+#ifdef __MACH__
+# undef IS_MACOS
+# define IS_MACOS 1
+#endif
+
 // Keybinds Definers //
 # ifdef __APPLE__
 #  define ESC			53
@@ -70,6 +78,8 @@ typedef struct s_data
 	int			moves;
 	int			movedelay;
 	int			moveready;
+	int			exitx;
+	int			exity;
 	char		**map;
 }	t_data;
 
@@ -90,8 +100,9 @@ char		**dup_map(char **map);
 int			filetype_check(char *file);
 void		validate_map(char **map, t_data *data);
 void		find_player(char **map, t_data *data);
-void		flood_fill(char **map, int x, int y);
-bool		goals_reachable(char **map_cpy);
+void		find_exit(char **map, t_data *data);
+void		flood_fill(char **map, int x, int y, char c, char ex);
+bool		goals_reachable(char **map_cpy, char c);
 void		only_player(char **map);
 
 #endif

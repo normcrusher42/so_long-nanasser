@@ -162,6 +162,9 @@ int	main(int ac, char **av)
 		return (0);
 	}
 	else
-		perror("\033[0;31mskill issue LMFAOOO");
+	{
+		ft_putendl_fd("\033[1;31mError\033[0;31m", 2);
+		ft_putendl_fd("This ain't the piscine btw, add a program argument", 2);
+	}
 	return (1);
 }

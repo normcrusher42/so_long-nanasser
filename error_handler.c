@@ -67,7 +67,7 @@ void	clean_sprites(t_data *data)
 	}
 }
 
-
+// Cleanup exit
 void	exit_cleanup(t_data *data, int tick)
 {
 	clean_sprites(data);
@@ -75,7 +75,8 @@ void	exit_cleanup(t_data *data, int tick)
 		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
 	if (data->mlx_ptr)
 	{
-		mlx_destroy_display(data->mlx_ptr);
+		if (!IS_MACOS)
+			mlx_destroy_display(data->mlx_ptr);
 		free(data->mlx_ptr);
 	}
 	if (tick)
@@ -85,6 +86,7 @@ void	exit_cleanup(t_data *data, int tick)
 	}
 }
 
+// Main exit cleanup function (and mlx cleaner)
 int	close_window(t_data *data, int tick)
 {
 	if (data->mlx_ptr && data->win_ptr)
