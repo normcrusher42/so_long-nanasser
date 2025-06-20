@@ -1,13 +1,5 @@
 #include "so_long.h"
 
-// int	destroy_process(t_data *data)
-// {
-// 	mlx_destroy_window(data->mlx_ptr, data->win_ptr);
-// 	mlx_destroy_display(data->mlx_ptr);
-// 	free(data->mlx_ptr);
-// 	return (0);
-// }
-
 void	draw_tile(t_data *data, int	tile, int x, int y)
 {
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->textures[tile], x * data->img_width, y * data->img_height);
@@ -46,7 +38,8 @@ void	draw_map(t_data *data)
 	}
 }
 
-void	ready_map(t_data *data, char *file)
+// Simply calls map parser to main
+static void	ready_map(t_data *data, char *file)
 {
 	data->map = map_reader(file, data);
 	if (!data->map)
@@ -63,14 +56,12 @@ void	ready_window_render(t_data *data)
 	data->textures[3] = mlx_xpm_file_to_image(data->mlx_ptr, "assets/textures/collectable.xpm", &size.collectablex, &size.collectabley);
 	data->textures[4] = mlx_xpm_file_to_image(data->mlx_ptr, "assets/textures/exit.xpm", &size.exitx, &size.exity);
 	if (!data->textures[0] || !data->textures[1] || !data->textures[2] || !data->textures[3] || !data->textures[4])
-			error_out('S', data->map, NULL, -1);
+	{
+		close_window(data, 0);
+		error_out('S', data->map, NULL, -1);
+	}
 	draw_map(data);
 }
-
-// void	finish_game(t_data *data)
-// {
-
-// }
 
 void	move_player(t_data *data, int x, int y)
 {
@@ -89,7 +80,7 @@ void	move_player(t_data *data, int x, int y)
 			draw_tile(data, 0, new_posx, new_posy);
 		}
 		else if (data->map[new_posy][new_posx] == 'E' && !data->collectable)
-			close_window(data);
+			close_window(data, 1);
 		draw_tile(data, 0, data->playerx, data->playery);
 		data->map[data->playery][data->playerx] = '0';
 		data->playery = new_posy;
@@ -103,7 +94,7 @@ void	move_player(t_data *data, int x, int y)
 int		key_press(int key, t_data *data)
 {
 	if (key == ESC)
-		close_window(data);
+		close_window(data, 1);
 	else if (key == UP || key == W)
 		move_player(data, 0, -1);
 	else if (key == LEFT || key == A)
@@ -123,7 +114,7 @@ int game_loop(void *param)
     if (!data->moveready)
     {
         data->movedelay++;
-        if (data->movedelay >= 1000) // adjust based on frame speed
+        if (data->movedelay >= 1000)
         {
             data->moveready = 1;
             data->movedelay = 0;
@@ -139,18 +130,20 @@ void	hooks_config(t_data *data)
 	mlx_loop_hook(data->mlx_ptr, game_loop, data);
 }
 
-void	create_window(t_data *data)
+// Gets floor size and initializes window without manually defining it
+static void	create_window(t_data *data)
 {
 	tile_size(data);
 	get_map_size(data);
 	data->win_ptr = mlx_new_window(data->mlx_ptr, data->img_width * data->mapx, data->img_height * data->mapy, "ITS ALIIIIIIVE >:D");
 	if (!data->win_ptr)
 	{
-		free(data->mlx_ptr);
+		close_window(data, 0);
 		error_out('S', data->map, NULL, -1);
 	}
 }
 
+// le Magie 𝓬𝓸𝓶𝓶𝓮𝓷𝓬𝓮
 int	main(int ac, char **av)
 {
 	if (ac == 2)
@@ -172,21 +165,3 @@ int	main(int ac, char **av)
 		perror("\033[0;31mskill issue LMFAOOO");
 	return (1);
 }
-
-// int	main(int ac, char **av)
-// {
-// 	int		i;
-// 	char	**map;
-
-// 	if (ac == 2)
-// 	{
-// 		i = 0;
-// 		map = map_reader(av[1]);
-// 		if (!map)
-// 			error_out('M', NULL, NULL, -1);
-// 		while (map[i])
-// 			ft_printf("%s\n", map[i++]);
-// 		free_map(map, NULL, -1);
-// 	}
-// 	return (0);
-// }

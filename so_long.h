@@ -8,6 +8,7 @@
 # include "mlx/mlx.h"
 # include <stdbool.h>
 
+// Keybinds Definers //
 # ifdef __APPLE__
 #  define ESC			53
 #  define UP			126
@@ -34,6 +35,9 @@
 #  define ON_MOUSE_DW 4
 # endif
 
+//------------------------//
+//   Sprite image sizes   //
+//------------------------//
 typedef struct s_size
 {
 	int			playerx;
@@ -48,9 +52,9 @@ typedef struct s_size
 	int			exity;
 }	t_size;
 
-//-----------------------//
-//      MLX tools        //
-//-----------------------//
+//------------------------//
+//   Map & Texture data   //
+//------------------------//
 typedef struct s_data
 {
 	void		*mlx_ptr;
@@ -72,17 +76,16 @@ typedef struct s_data
 // Error Handlers //
 void		error_out(char error_sign, char **map, char *line, int fd);
 void		free_map(char **map, char *line, int fd);
-int			close_window(t_data *data);
+int			close_window(t_data *data, int tick);
 
+void		tile_size(t_data *data);
+void		get_map_size(t_data *data);
 
 //-----------------------//
 //   Map Parsing tools   //
 //-----------------------//
 char		**map_reader(char *file_path, t_data *data);
 char		**dup_map(char **map);
-void		tile_size(t_data *data);
-void		get_map_size(t_data *data);
-
 // Map Validator //
 int			filetype_check(char *file);
 void		validate_map(char **map, t_data *data);
@@ -90,6 +93,5 @@ void		find_player(char **map, t_data *data);
 void		flood_fill(char **map, int x, int y);
 bool		goals_reachable(char **map_cpy);
 void		only_player(char **map);
-
 
 #endif

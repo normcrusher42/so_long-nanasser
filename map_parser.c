@@ -101,5 +101,3 @@ char	**map_reader(char *file_path, t_data *data)
 	close(fd);
 	return (map);
 }
-
-

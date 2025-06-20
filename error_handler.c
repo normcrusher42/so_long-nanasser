@@ -25,26 +25,25 @@ void	free_map(char **map, char *line, int fd)
 
 void	error_out(char error_sign, char **map, char *line, int fd)
 {
-	if (error_sign == 'D') // file descriptor failed to open
-		perror("\033[1;31mMap failed to open. Bad input? Typo? Perhaps a SKILL ISSUE");
-	else if (error_sign == 'S') // sprite size parsing failed
-		perror("\033[0;31mGot the right .xpm format m8?");
-	else if (error_sign == 'M') // map failed to allocate
-		perror("\033[1;31mWoops, something went wrong with the process. Maybe try again? Or let Nasser fix his shit code.");
-	else if (error_sign == 'H') // height value too small
-		perror("\033[1;31mThat's not how you imagine a map!!! Stop trying to break me and play the damn game \033[1;37mITS FREE");
-	else if (error_sign == 'L') // Failed to read line due to an incorrect character conflict
-		perror("\033[1;31mWrong character found in map. Write it according to the subject!!");
-	else if (error_sign == 'X') // uneven map length.
-		perror("\033[1;31mMap length uneven. Do you need a shape sorter to learn what a rectangle looks like?");
-	else if (error_sign == '1') // map isn't enclosed
-		perror("\033[1;31mMap isn't boxed properly, check your ones again");
-	else if (error_sign == 'P') // no player/more than 1 player
-		perror("\033[0;31mAre you the only one playing the game or not? Get a controller. Be. The. \033[1;31mPLAYER.");
-	else if (error_sign == 'G') // no collectables and/or exit (or more than 1)
-		perror("\033[1;31mAppreciate the attempt but your goals are just a teensy bit out of your reach if u get my drift.");
-	else // dumbass used the wrong error handling sign for his own function
-		perror("\033[0;31mbroskie u got the wrong error sign HOW DO YOU MESS THAT UP?????? \033[1;31mNO PLAYER EVER SEES THIS MESSAGE");
+	ft_putendl_fd("\033[1;31mError\033[0;31m", 2);
+	if (error_sign == 'D')
+		perror("Invalid Map. Bad input? Typo? Perhaps a SKILL ISSUE");
+	else if (error_sign == 'S')
+		perror("Got the right .xpm format m8?");
+	else if (error_sign == 'M')
+		perror("Woops, something died. Prolly allocation failure.");
+	else if (error_sign == 'H')
+		perror("Ur not slick, get the map format rite.");
+	else if (error_sign == 'L')
+		perror("Wrong character found in map. get it rite!11!1!!");
+	else if (error_sign == 'X')
+		perror("Map length uneven. Go back to Kindergarten.");
+	else if (error_sign == '1')
+		perror("Map isn't boxed properly, check your ones again");
+	else if (error_sign == 'P')
+		perror("Play the game bro its free Wallahi there's no transactions");
+	else if (error_sign == 'G')
+		perror("Ur goals are just a teensy bit out of your reach.");
 	if (line)
 		free_map(NULL, line, fd);
 	if (map)
@@ -57,14 +56,19 @@ void	clean_sprites(t_data *data)
 	int	i;
 
 	i = 0;
-	if (data->textures[0])
+	while (i < 5)
 	{
-		while (i < 5)
-		mlx_destroy_image(data->mlx_ptr, data->textures[i++]);
+		if (data->textures[i])
+		{
+			mlx_destroy_image(data->mlx_ptr, data->textures[i]);
+			data->textures[i] = NULL;
+		}
+		i++;
 	}
 }
 
-void	exit_cleanup(t_data *data)
+
+void	exit_cleanup(t_data *data, int tick)
 {
 	clean_sprites(data);
 	if (data->win_ptr && data->mlx_ptr)
@@ -74,13 +78,17 @@ void	exit_cleanup(t_data *data)
 		mlx_destroy_display(data->mlx_ptr);
 		free(data->mlx_ptr);
 	}
-	free_map(data->map, NULL, -1);
-	exit(0);
+	if (tick)
+	{
+		free_map(data->map, NULL, -1);
+		exit(0);
+	}
 }
 
-int	close_window(t_data *data)
+int	close_window(t_data *data, int tick)
 {
-	// mlx_clear_window(data->mlx_ptr, data->win_ptr);
-	exit_cleanup(data);
+	if (data->mlx_ptr && data->win_ptr)
+		mlx_clear_window(data->mlx_ptr, data->win_ptr);
+	exit_cleanup(data, tick);
 	return (0);
 }
