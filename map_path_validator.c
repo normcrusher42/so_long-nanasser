@@ -45,7 +45,7 @@ char	**dup_map(char **map)
 }
 
 // Fills the map like a bucket of water
-void	flood_fill(char **map, int x, int y, char c, char ex)
+void	flood_fill(char **map, int x, int y, char c)
 {
 	int	height;
 	int	width;
@@ -55,13 +55,13 @@ void	flood_fill(char **map, int x, int y, char c, char ex)
 	while (map[height])
 		height++;
 	if (x < 0 || y < 0 || x >= width || y >= height
-		|| map[y][x] == '1' || map[y][x] == ex || map[y][x] == c)
+		|| map[y][x] == '1' || map[y][x] == 'X' || map[y][x] == c)
 		return ;
-	map[y][x] = ex;
-	flood_fill(map, x + 1, y, c, ex);
-	flood_fill(map, x - 1, y, c, ex);
-	flood_fill(map, x, y + 1, c, ex);
-	flood_fill(map, x, y - 1, c, ex);
+	map[y][x] = 'X';
+	flood_fill(map, x + 1, y, c);
+	flood_fill(map, x - 1, y, c);
+	flood_fill(map, x, y + 1, c);
+	flood_fill(map, x, y - 1, c);
 }
 
 // Locates (only one of) the player's position for flood_fill to initialize

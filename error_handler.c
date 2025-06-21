@@ -20,6 +20,7 @@ void	free_map(char **map, char *line, int fd)
 		while (map[i])
 			free(map[i++]);
 		free(map);
+		map = NULL;
 	}
 }
 

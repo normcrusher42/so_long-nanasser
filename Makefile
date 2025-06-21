@@ -10,6 +10,7 @@ MLX_LIB = $(MLX_DIR)/libmlx.a
 
 # Program sauce files
 SRC = ./so_long.c map_parser.c error_handler.c map_validator.c map_path_validator.c map_utils.c \
+hooks_setup_and_events.c map_drawer.c \
 
 # Object files
 OBJ = $(SRC:%.c=$(OBJ_PATH)%.o)
@@ -21,7 +22,7 @@ CFLAGS	= -Wall -Werror -Wextra -I. -I$(MLX_DIR)
 ifeq ($(shell uname), Linux)
 	MLX_FLAGS = -Lmlx -lmlx -L/usr/lib/X11 -lXext -lX11
 else
-	MLX_FLAGS = -Lmlx -lmlx -L/usr/X11/lib -lXext -lX11 -framework OpenGL -framework AppKit
+	MLX_FLAGS = -Lmlx -lmlx -framework OpenGL -framework AppKit
 endif
 
 # Compiler colors ✨

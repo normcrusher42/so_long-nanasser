@@ -8,14 +8,6 @@
 # include "mlx/mlx.h"
 # include <stdbool.h>
 
-// small Macro for Mac defintion 
-#define IS_MACOS 0
-
-#ifdef __MACH__
-# undef IS_MACOS
-# define IS_MACOS 1
-#endif
-
 // Keybinds Definers //
 # ifdef __APPLE__
 #  define ESC			53
@@ -28,6 +20,7 @@
 #  define S				1
 #  define D				2
 #  define ON_MOUSE_DW	4
+#  define IS_MACOS 1
 # else
 #  define ESC			65307
 #  define MOUSE_UP		4
@@ -41,6 +34,7 @@
 #  define S				115
 #  define D				100
 #  define ON_MOUSE_DW 4
+#  define IS_MACOS 0
 # endif
 
 //------------------------//
@@ -101,8 +95,24 @@ int			filetype_check(char *file);
 void		validate_map(char **map, t_data *data);
 void		find_player(char **map, t_data *data);
 void		find_exit(char **map, t_data *data);
-void		flood_fill(char **map, int x, int y, char c, char ex);
+void		flood_fill(char **map, int x, int y, char c);
 bool		goals_reachable(char **map_cpy, char c);
 void		only_player(char **map);
+
+//----------------------//
+//    Hooks settings    //
+//----------------------//
+void		hooks_config(t_data *data);
+// Game functionality //
+int			game_loop(void *param);
+int			key_press(int key, t_data *data);
+int			get_tile_index(char c);
+
+//----------------------//
+//     Window Canvas    //
+//----------------------//
+void		ready_window_render(t_data *data);
+void		draw_tile(t_data *data, int tile, int x, int y);
+void		move_player(t_data *data, int x, int y);
 
 #endif
