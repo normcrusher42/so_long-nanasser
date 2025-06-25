@@ -1,5 +1,6 @@
 #include "so_long.h"
 
+// Map and line cleaner (usually followed from error_out)
 void	free_map(char **map, char *line, int fd)
 {
 	int	i;
@@ -24,6 +25,7 @@ void	free_map(char **map, char *line, int fd)
 	}
 }
 
+// Main error output and parser cleanup
 void	error_out(char error_sign, char **map, char *line, int fd)
 {
 	ft_putendl_fd("\033[1;31mError\033[0;31m", 2);
@@ -52,6 +54,7 @@ void	error_out(char error_sign, char **map, char *line, int fd)
 	exit(1);
 }
 
+// Destroys all sprite images defined (hard-coded)
 void	clean_sprites(t_data *data)
 {
 	int	i;
@@ -66,32 +69,4 @@ void	clean_sprites(t_data *data)
 		}
 		i++;
 	}
-}
-
-// Cleanup exit
-void	exit_cleanup(t_data *data, int tick)
-{
-	clean_sprites(data);
-	if (data->win_ptr && data->mlx_ptr)
-		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
-	if (data->mlx_ptr)
-	{
-		if (!IS_MACOS)
-			mlx_destroy_display(data->mlx_ptr);
-		free(data->mlx_ptr);
-	}
-	if (tick)
-	{
-		free_map(data->map, NULL, -1);
-		exit(0);
-	}
-}
-
-// Main exit cleanup function (and mlx cleaner)
-int	close_window(t_data *data, int tick)
-{
-	if (data->mlx_ptr && data->win_ptr)
-		mlx_clear_window(data->mlx_ptr, data->win_ptr);
-	exit_cleanup(data, tick);
-	return (0);
 }

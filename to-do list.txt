@@ -13,6 +13,8 @@ Now for le fun Part
 -------------------
 Sprite animation (in all directions) 🚫
 Smooth movement 🚫
+2 Player support 🚫
+Map themes 🚫
 Sounds and music 🚫
 -------------------
 

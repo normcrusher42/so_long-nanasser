@@ -63,19 +63,6 @@ static char	**map_update(char **map, char *line, int size)
 	return (new_map);
 }
 
-static void	map_de_map(char *line, char ***map, int *height, int fd)
-{
-	char	**updated;
-
-	check_line(line, *map, fd);
-	updated = map_update(*map, line, *height);
-	if (!updated)
-		error_out('M', *map, line, fd);
-	*map = updated;
-	(*height)++;
-	free(line);
-}
-
 // The main map parser
 char	**map_reader(char *file_path, t_data *data)
 {
@@ -92,7 +79,11 @@ char	**map_reader(char *file_path, t_data *data)
 	line = get_next_line(fd);
 	while (line)
 	{
-		map_de_map(line, &map, &height, fd);
+		check_line(line, map, fd);
+		map = map_update(map, line, height++);
+		if (!map)
+			error_out('M', map, line, fd);
+		free(line);
 		line = get_next_line(fd);
 	}
 	if (height == 0 || !map)

@@ -20,7 +20,6 @@
 #  define S				1
 #  define D				2
 #  define ON_MOUSE_DW	4
-#  define IS_MACOS 1
 # else
 #  define ESC			65307
 #  define MOUSE_UP		4
@@ -34,7 +33,6 @@
 #  define S				115
 #  define D				100
 #  define ON_MOUSE_DW 4
-#  define IS_MACOS 0
 # endif
 
 //------------------------//
@@ -62,6 +60,7 @@ typedef struct s_data
 	void		*mlx_ptr;
 	void		*win_ptr;
 	void		*textures[5];
+	void		*frames[12];
 	int			img_width;
 	int			img_height;
 	int			mapx;
@@ -81,15 +80,16 @@ typedef struct s_data
 void		error_out(char error_sign, char **map, char *line, int fd);
 void		free_map(char **map, char *line, int fd);
 int			close_window(t_data *data, int tick);
-
-void		tile_size(t_data *data);
-void		get_map_size(t_data *data);
+void		clean_sprites(t_data *data);
 
 //-----------------------//
 //   Map Parsing tools   //
 //-----------------------//
 char		**map_reader(char *file_path, t_data *data);
 char		**dup_map(char **map);
+// Map size grabber //
+void		tile_size(t_data *data);
+void		get_map_size(t_data *data);
 // Map Validator //
 int			filetype_check(char *file);
 void		validate_map(char **map, t_data *data);
