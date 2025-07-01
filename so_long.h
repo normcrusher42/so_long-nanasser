@@ -83,6 +83,8 @@ typedef struct s_data
 	int			moving;
 	int			last_playerx;
 	int			last_playery;
+	int			collected_pending;
+	int			step_log;
 	int			move_speed;
 	int			direction; // 0 = down, 1 = left, 2 = right, 3 = up
 	int			anim_frame;
@@ -118,7 +120,6 @@ void		only_player(char **map);
 void		hooks_config(t_data *data);
 // Game functionality //
 int			game_loop(void *param);
-int			key_press(int key, t_data *data);
 int			get_tile_index(char c);
 
 //----------------------//
@@ -127,5 +128,6 @@ int			get_tile_index(char c);
 void		ready_window_render(t_data *data);
 void		draw_tile(t_data *data, int tile, int x, int y);
 void		move_player(t_data *data, int x, int y);
+void		draw_map(t_data *data);
 
 #endif

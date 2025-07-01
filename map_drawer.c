@@ -1,5 +1,19 @@
 #include "so_long.h"
 
+// returns tile defintion to draw
+int	get_tile_index(char c)
+{
+	if (c == '1')
+		return (1);
+	else if (c == 'P')
+		return (2);
+	else if (c == 'C')
+		return (3);
+	else if (c == 'E')
+		return (4);
+	return (0);
+}
+
 // Self-Explanatory.
 void	draw_tile(t_data *data, int tile, int x, int y)
 {
@@ -8,7 +22,7 @@ void	draw_tile(t_data *data, int tile, int x, int y)
 }
 
 // Self-Explanatory. 
-static void	draw_map(t_data *data)
+void	draw_map(t_data *data)
 {
 	int	x;
 	int	y;

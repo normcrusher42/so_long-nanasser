@@ -1,19 +1,5 @@
 #include "so_long.h"
 
-// returns tile defintion to draw
-int	get_tile_index(char c)
-{
-	if (c == '1')
-		return (1);
-	else if (c == 'P')
-		return (2);
-	else if (c == 'C')
-		return (3);
-	else if (c == 'E')
-		return (4);
-	return (0);
-}
-
 // Draws player move to the next tile (and draws the floor on previous tile)
 void	move_player(t_data *data, int x, int y)
 {
@@ -44,7 +30,7 @@ void	move_player(t_data *data, int x, int y)
 }
 
 // Keys input action
-int	key_press(int key, t_data *data)
+static int	key_press(int key, t_data *data)
 {
 	if (!data->moveready)
 		return (0);

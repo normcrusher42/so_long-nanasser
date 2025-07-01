@@ -1,7 +1,7 @@
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 // Defining the needed variables to help make the smooth tile animation work
-void	set_variables(t_data *data)
+static void	set_variables(t_data *data)
 {
 	data->smooth_x = data->playerx * data->img_width;
 	data->smooth_y = data->playery * data->img_height;
@@ -9,6 +9,7 @@ void	set_variables(t_data *data)
 	data->target_y = data->smooth_y;
 	data->moving = 0;
 	data->move_speed = 4;
+	data->step_log = 0;
 }
 
 // Simply calls map parser to main
