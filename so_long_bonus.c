@@ -1,5 +1,16 @@
 #include "so_long.h"
 
+// Defining the needed variables to help make the smooth tile animation work
+void	set_variables(t_data *data)
+{
+	data->smooth_x = data->playerx * data->img_width;
+	data->smooth_y = data->playery * data->img_height;
+	data->target_x = data->smooth_x;
+	data->target_y = data->smooth_y;
+	data->moving = 0;
+	data->move_speed = 4;
+}
+
 // Simply calls map parser to main
 static void	ready_map(t_data *data, char *file)
 {
@@ -35,6 +46,7 @@ int	main(int ac, char **av)
 		if (!data.mlx_ptr)
 			error_out('M', data.map, NULL, -1);
 		create_window(&data);
+		set_variables(&data);
 		hooks_config(&data);
 		ready_window_render(&data);
 		mlx_loop(data.mlx_ptr);

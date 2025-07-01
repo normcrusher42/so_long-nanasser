@@ -55,6 +55,7 @@ typedef struct s_size
 //------------------------//
 //   Map & Texture data   //
 //------------------------//
+
 typedef struct s_data
 {
 	void		*mlx_ptr;
@@ -63,6 +64,7 @@ typedef struct s_data
 	void		*frames[12];
 	int			img_width;
 	int			img_height;
+	int			TILE_SIZE;
 	int			mapx;
 	int			mapy;
 	int			playerx;
@@ -74,6 +76,17 @@ typedef struct s_data
 	int			exitx;
 	int			exity;
 	char		**map;
+	int			smooth_x;
+	int			smooth_y;
+	int			target_x;
+	int			target_y;
+	int			moving;
+	int			last_playerx;
+	int			last_playery;
+	int			move_speed;
+	int			direction; // 0 = down, 1 = left, 2 = right, 3 = up
+	int			anim_frame;
+	int			anim_tick;
 }	t_data;
 
 // Error Handlers //
