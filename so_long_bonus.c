@@ -49,6 +49,7 @@ int	main(int ac, char **av)
 		create_window(&data);
 		set_variables(&data);
 		hooks_config(&data);
+		animation_sequence(&data);
 		ready_window_render(&data);
 		mlx_loop(data.mlx_ptr);
 		return (0);

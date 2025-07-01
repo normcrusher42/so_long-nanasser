@@ -26,6 +26,11 @@ static void	redraw_player(t_data *data)
 	i = get_tile_index_no_p(current);
 	if (i)
 		draw_tile(data, i, px, py);
+	if (!data->frames[data->direction * 3 + data->anim_frame])
+	{
+		ft_printf("Missing player frame at index %d\n", data->direction * 3 + data->anim_frame);
+		return ;
+	}
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
 		data->frames[data->direction * 3 + data->anim_frame], data->smooth_x,
 		data->smooth_y);
@@ -90,29 +95,31 @@ static int	key_press(int key, t_data *data)
 
 void	check_var(t_data *data)
 {
+	ft_printf("%d %d\n", data->smooth_x, data->target_x);
+	ft_printf("%d %d\n", data->smooth_y, data->target_y);
 	if (data->smooth_x < data->target_x)
-			data->smooth_x += data->move_speed;
-		else if (data->smooth_x > data->target_x)
-			data->smooth_x -= data->move_speed;
-		if (data->smooth_y < data->target_y)
-			data->smooth_y += data->move_speed;
-		else if (data->smooth_y > data->target_y)
-			data->smooth_y -= data->move_speed;
-		if (data->smooth_x == data->target_x
-			&& data->smooth_y == data->target_y)
+		data->smooth_x += data->move_speed;
+	else if (data->smooth_x > data->target_x)
+		data->smooth_x -= data->move_speed;
+	if (data->smooth_y < data->target_y)
+		data->smooth_y += data->move_speed;
+	else if (data->smooth_y > data->target_y)
+		data->smooth_y -= data->move_speed;
+	if (data->smooth_x == data->target_x
+		&& data->smooth_y == data->target_y)
+		{
+			data->moving = 0;
+			if (data->collected_pending)
 			{
-				data->moving = 0;
-				if (data->collected_pending)
-				{
-					data->collected_pending = 0;
-					draw_tile(data, 0, data->playerx, data->playery);
-				}
-				if (!data->step_log)
-				{
-					data->step_log = 1;
-					ft_printf("Current step is [\033[1;33m%d\033[0;37m]\n", ++data->moves);
-				}
+				data->collected_pending = 0;
+				draw_tile(data, 0, data->playerx, data->playery);
 			}
+			if (!data->step_log)
+			{
+				data->step_log = 1;
+				ft_printf("Current step is [\033[1;33m%d\033[0;37m]\n", ++data->moves);
+			}
+		}
 }
 
 // Movement delay function when Key is held down
@@ -127,8 +134,8 @@ int	game_loop(void *param)
 		{
 			data->anim_tick = 0;
 			data->anim_frame = (data->anim_frame + 1) % 3;
+			check_var(data);
 		}
-		check_var(data);
 		redraw_player(data);
 	}
 	return (0);

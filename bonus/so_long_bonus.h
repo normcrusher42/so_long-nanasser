@@ -3,4 +3,6 @@
 
 # include "../so_long.h"
 
+void	animation_sequence(t_data *data);
+
 #endif
