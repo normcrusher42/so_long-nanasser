@@ -64,13 +64,40 @@ static void	move_player_dir(t_data *data, int x, int y, int dir)
 		update_var(data, new_posx, new_posy);
 		data->direction = dir;
 	}
+	else
+	{
+		draw_tile(data, 0, data->playerx, data->playery);
+		mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, 
+			data->frames[dir * 3 + 0], data->playerx * data->img_width,
+			data->playery * data->img_height);
+	}
+}
+
+void	is_sprinting(t_data *data)
+{
+	ft_printf("over here\n");
+	if (data->sprinting == 0)
+		data->sprinting = 1;
+	else
+		data->sprinting = 0;
+	if (data->sprinting == 1)
+		data->move_speed = 12;
+	else
+		data->move_speed = 8;
 }
 
 // Keys input action
 static int	key_press(int key, t_data *data)
 {
 	if (data->moving)
+	{
+		data->buffered_key = key;
+		data->key_buffered = 1;
 		return (0);
+	}
+	data->key_buffered = 0;
+	if (key == SPACE)
+		is_sprinting(data);
 	if (key == ESC)
 		close_window(data, 1);
 	else if (key == UP || key == W)
@@ -114,10 +141,31 @@ void	display_status(t_data *data)
 	data->moves++;
 }
 
+void	check_step(t_data *data)
+{
+	char	tile;
+	int tile_index;
+
+	if (data->collected_pending)
+	{
+		data->collected_pending = 0;
+		data->collectable--;
+		data->map[data->playery][data->playerx] = '0';
+		draw_tile(data, 0, data->playerx, data->playery);
+	}
+	else
+	{
+		tile = data->map[data->playery][data->playerx];
+		tile_index = get_tile_index_no_p(tile);
+		draw_tile(data, 0, data->playerx, data->playery);
+		if (tile_index)
+			draw_tile(data, tile_index, data->playerx, data->playery);
+	}
+}
 void	check_var(t_data *data)
 {
-	int dx;
-	int dy;
+	int		dx;
+	int		dy;
 
 	dx = data->target_x - data->smooth_x;
 	dy = data->target_y - data->smooth_y;
@@ -126,25 +174,21 @@ void	check_var(t_data *data)
 			data->moving = 0;
 			data->smooth_x = data->target_x;
 			data->smooth_y = data->target_y;
-			if (data->collected_pending)
-			{
-				data->collected_pending = 0;
-				data->collectable--;
-				data->map[data->playery][data->playerx] = '0';
-				draw_tile(data, 0, data->playerx, data->playery);
-			}
-			else
-			{
-				char tile = data->map[data->playery][data->playerx];
-				int tile_index = get_tile_index_no_p(tile);
-				draw_tile(data, 0, data->playerx, data->playery);
-				if (tile_index)
-					draw_tile(data, tile_index, data->playerx, data->playery);
-			}
+			check_step(data);
 			if (!data->step_log)
 			{
 				data->step_log = 1;
 				display_status(data);
+			}
+			if (data->key_buffered)
+			{
+				data->key_buffered = 0;
+				draw_tile(data, 0, data->last_playerx, data->last_playery);
+				char tile = data->map[data->last_playery][data->last_playerx];
+				int index = get_tile_index_no_p(tile);
+				if (index)
+					draw_tile(data, index, data->last_playerx, data->last_playery);
+				key_press(data->buffered_key, data);
 			}
 		}
 }

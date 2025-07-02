@@ -13,15 +13,14 @@ Now for le fun Part
 -------------------
 Sprite animation (in all directions) ✅
 Smooth movement ✅
-Input buffering 🚫 ❗❗
+Input buffering ⚠ - (just need to fix jittery tap-hold movement)
 Sprint Key 🚫
 organize bonus header functions 🚫 ❗❗
-Sounds and music 🚫 (might leave on the side sadly)
+Sounds and music ❌ (might leave on the side sadly)
 Obstacles (like a water pool) 🚫
-2 Player support 🚫
 Map themes 🚫
+2 Player support 🚫
 -------------------
-
 
 stickers for checker:
 ✅

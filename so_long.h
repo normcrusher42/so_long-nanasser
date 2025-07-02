@@ -20,6 +20,8 @@
 #  define S				1
 #  define D				2
 #  define ON_MOUSE_DW	4
+#  define SPACE			49
+
 # else
 #  define ESC			65307
 #  define MOUSE_UP		4
@@ -32,7 +34,9 @@
 #  define A				97
 #  define S				115
 #  define D				100
-#  define ON_MOUSE_DW 4
+#  define ON_MOUSE_DW	4
+#  define SPACE			65
+
 # endif
 
 //------------------------//
@@ -82,12 +86,15 @@ typedef struct s_data
 	int			moving; // player movement state (1 for movable, 0 otherwise)
 	int			last_playerx; // previous tile posx
 	int			last_playery; // previous tile posy
-	int			collected_pending; // if collectable found = awaits animation
+	int			collected_pending; // Flag to del collectable after animation
 	int			step_log; // flag to track when step is complete
 	int			move_speed; // num of pixels sprite will skip
 	int			direction; // 0 = down, 1 = left, 2 = right, 3 = up
 	int			anim_frame; // curr animation frame
 	int			anim_tick; // speed of the animation
+	int			buffered_key; // the key that was pressed earlier
+	int			key_buffered; // 0 or 1 flag to initiate key buffer
+	int			sprinting;
 }	t_data;
 
 // Error Handlers //

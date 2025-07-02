@@ -41,7 +41,10 @@ void	exit_cleanup(t_data *data, int tick)
 	if (tick)
 	{
 		free_map(data->map, NULL, -1);
-		ft_printf("\033[0;32mSaga Complete!\033[0;37m\n");
+		if (!data->collectable)
+			ft_printf("\033[0;32mEpic Saga Complete!\033[0;37m\n");
+		else
+			ft_printf("Saga not completed.. :(\n");
 		exit(0);
 	}
 }
