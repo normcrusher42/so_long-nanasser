@@ -17,11 +17,6 @@ int	get_tile_index(char c)
 // Self-Explanatory.
 void	draw_tile(t_data *data, int tile, int x, int y)
 {
-	if (!data->frames[tile])
-	{
-		ft_printf("Missing texture at index %d\n", tile);
-		return ;
-	}
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->textures[tile],
 		x * data->img_width, y * data->img_height);
 }

@@ -3,6 +3,7 @@
 
 # include "../so_long.h"
 
-void	animation_sequence(t_data *data);
+int		load_frames(t_data *data);
+void	display_status(t_data *data);
 
 #endif

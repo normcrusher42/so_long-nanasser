@@ -8,7 +8,7 @@ static void	set_variables(t_data *data)
 	data->target_x = data->smooth_x;
 	data->target_y = data->smooth_y;
 	data->moving = 0;
-	data->move_speed = 4;
+	data->move_speed = 8;
 	data->step_log = 0;
 }
 
@@ -49,8 +49,9 @@ int	main(int ac, char **av)
 		create_window(&data);
 		set_variables(&data);
 		hooks_config(&data);
-		animation_sequence(&data);
+		load_frames(&data);
 		ready_window_render(&data);
+		display_status(&data);
 		mlx_loop(data.mlx_ptr);
 		return (0);
 	}

@@ -1,6 +1,7 @@
 *.o
 *.a
 so_long
+so_long_bonus
 .DS_Store
 obj
 .vscode

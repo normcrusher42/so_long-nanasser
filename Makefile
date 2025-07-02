@@ -29,11 +29,11 @@ CFLAGS	= -Wall -Werror -Wextra -I. -I$(MLX_DIR) -I$(BONUS_DIR)
 ifeq ($(shell uname), Linux)
 	MLX_FLAGS = -Lmlx -lmlx -L/usr/lib/X11 -lXext -lX11
 	SRC += cleanup_linux.c
-	SRC_BONUS += cleanup_linux.c
+	SRC_BONUS += $(BONUS_DIR)cleanup_linux_bonus.c
 else
 	MLX_FLAGS = -Lmlx -lmlx -framework OpenGL -framework AppKit
 	SRC += cleanup_mac.c
-	SRC_BONUS += cleanup_mac.c
+	SRC_BONUS += $(BONUS_DIR)cleanup_mac_bonus.c
 endif
 
 # Compiler colors ✨

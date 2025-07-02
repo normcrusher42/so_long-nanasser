@@ -55,40 +55,39 @@ typedef struct s_size
 //------------------------//
 //   Map & Texture data   //
 //------------------------//
-
 typedef struct s_data
 {
 	void		*mlx_ptr;
 	void		*win_ptr;
-	void		*textures[5];
-	void		*frames[12];
-	int			img_width;
-	int			img_height;
-	int			TILE_SIZE;
-	int			mapx;
-	int			mapy;
-	int			playerx;
-	int			playery;
-	int			collectable;
-	int			moves;
-	int			movedelay;
-	int			moveready;
-	int			exitx;
-	int			exity;
+	void		*textures[5]; // map tile textures
+	void		*frames[12]; // character animation textures
+	int			img_width; // floor tile width size
+	int			img_height; // floor tile height size
+	int			mapx; // map width size
+	int			mapy; // map height size
+	int			playerx; // player posx
+	int			playery; // player posy
+	int			collectable; // num of collectables (-- when collected till 0)
+	int			moves; // number of steps taken
+	int			movedelay; // movement input delay for hold
+	int			moveready; // player movement state (1 for movable 0 otherwise)
+	int			exitx; // exit posx
+	int			exity; // exit posy
 	char		**map;
-	int			smooth_x;
-	int			smooth_y;
-	int			target_x;
-	int			target_y;
-	int			moving;
-	int			last_playerx;
-	int			last_playery;
-	int			collected_pending;
-	int			step_log;
-	int			move_speed;
+	// all these here are bonus related
+	int			smooth_x; // mid-pixel posx
+	int			smooth_y; // mid-pixel posy
+	int			target_x; // next tile posx
+	int			target_y; // next tile posy
+	int			moving; // player movement state (1 for movable, 0 otherwise)
+	int			last_playerx; // previous tile posx
+	int			last_playery; // previous tile posy
+	int			collected_pending; // if collectable found = awaits animation
+	int			step_log; // flag to track when step is complete
+	int			move_speed; // num of pixels sprite will skip
 	int			direction; // 0 = down, 1 = left, 2 = right, 3 = up
-	int			anim_frame;
-	int			anim_tick;
+	int			anim_frame; // curr animation frame
+	int			anim_tick; // speed of the animation
 }	t_data;
 
 // Error Handlers //

@@ -15,6 +15,16 @@ void	clean_sprites(t_data *data)
 		}
 		i++;
 	}
+	i = 0;
+	while (i < 12)
+	{
+		if (data->frames[i])
+		{
+			mlx_destroy_image(data->mlx_ptr, data->frames[i]);
+			data->textures[i] = NULL;
+		}
+		i++;
+	}
 }
 
 // Cleanup following program exit but with conditions for mlx functions
@@ -31,10 +41,7 @@ void	exit_cleanup(t_data *data, int tick)
 	if (tick)
 	{
 		free_map(data->map, NULL, -1);
-		if (!data->collectable)
-			ft_printf("\033[0;32mEpic Saga Complete!\033[0;37m\n");
-		else
-			ft_printf("Saga not completed.. :(\n");
+		ft_printf("\033[0;32mSaga Complete!\033[0;37m\n");
 		exit(0);
 	}
 }

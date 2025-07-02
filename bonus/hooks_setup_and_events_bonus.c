@@ -26,11 +26,6 @@ static void	redraw_player(t_data *data)
 	i = get_tile_index_no_p(current);
 	if (i)
 		draw_tile(data, i, px, py);
-	if (!data->frames[data->direction * 3 + data->anim_frame])
-	{
-		ft_printf("Missing player frame at index %d\n", data->direction * 3 + data->anim_frame);
-		return ;
-	}
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
 		data->frames[data->direction * 3 + data->anim_frame], data->smooth_x,
 		data->smooth_y);
@@ -63,11 +58,7 @@ static void	move_player_dir(t_data *data, int x, int y, int dir)
 		if (data->map[new_posy][new_posx] == 'E' && data->collectable)
 			return ;
 		else if (data->map[new_posy][new_posx] == 'C')
-		{
-			data->collectable--;
-			data->map[new_posy][new_posx] = '0';
 			data->collected_pending = 1;
-		}
 		else if (data->map[new_posy][new_posx] == 'E' && !data->collectable)
 			close_window(data, 1);
 		update_var(data, new_posx, new_posy);
@@ -93,31 +84,67 @@ static int	key_press(int key, t_data *data)
 	return (0);
 }
 
+int	ft_abs(int n)
+{
+	if (n < 0)
+		return (-n);
+	return (n);
+}
+
+void	display_status(t_data *data)
+{
+	char	*moves_str = "moves : ";
+	char	*num;
+	char	*num2;
+	char	*collectables = "collectables : ";
+
+	num = ft_itoa(data->moves);
+	num2 = ft_itoa(data->collectable);
+	moves_str = ft_strjoin(moves_str, num);
+	collectables = ft_strjoin(collectables, num2);
+	draw_tile(data, 1, 0, 0);
+	draw_tile(data, 1, 1, 0);
+	draw_tile(data, 1, 2, 0);
+	mlx_string_put(data->mlx_ptr, data->win_ptr, 20, 20, 0xFFFF00, moves_str);
+	mlx_string_put(data->mlx_ptr, data->win_ptr, 20, 35, 0xFF2E2E, collectables);
+	free(moves_str);
+	free(collectables);
+	free(num);
+	free(num2);
+	data->moves++;
+}
+
 void	check_var(t_data *data)
 {
-	ft_printf("%d %d\n", data->smooth_x, data->target_x);
-	ft_printf("%d %d\n", data->smooth_y, data->target_y);
-	if (data->smooth_x < data->target_x)
-		data->smooth_x += data->move_speed;
-	else if (data->smooth_x > data->target_x)
-		data->smooth_x -= data->move_speed;
-	if (data->smooth_y < data->target_y)
-		data->smooth_y += data->move_speed;
-	else if (data->smooth_y > data->target_y)
-		data->smooth_y -= data->move_speed;
-	if (data->smooth_x == data->target_x
-		&& data->smooth_y == data->target_y)
+	int dx;
+	int dy;
+
+	dx = data->target_x - data->smooth_x;
+	dy = data->target_y - data->smooth_y;
+	if (ft_abs(dx) <= data->move_speed && ft_abs(dy) <= data->move_speed)
 		{
 			data->moving = 0;
+			data->smooth_x = data->target_x;
+			data->smooth_y = data->target_y;
 			if (data->collected_pending)
 			{
 				data->collected_pending = 0;
+				data->collectable--;
+				data->map[data->playery][data->playerx] = '0';
 				draw_tile(data, 0, data->playerx, data->playery);
+			}
+			else
+			{
+				char tile = data->map[data->playery][data->playerx];
+				int tile_index = get_tile_index_no_p(tile);
+				draw_tile(data, 0, data->playerx, data->playery);
+				if (tile_index)
+					draw_tile(data, tile_index, data->playerx, data->playery);
 			}
 			if (!data->step_log)
 			{
 				data->step_log = 1;
-				ft_printf("Current step is [\033[1;33m%d\033[0;37m]\n", ++data->moves);
+				display_status(data);
 			}
 		}
 }
@@ -130,13 +157,22 @@ int	game_loop(void *param)
 	data = (t_data *)param;
 	if (data->moving)
 	{
-		if (++data->anim_tick >= 6)
+		if (++data->anim_tick >= 700)
 		{
 			data->anim_tick = 0;
 			data->anim_frame = (data->anim_frame + 1) % 3;
+			if (data->smooth_x < data->target_x)
+				data->smooth_x += data->move_speed;
+			else if (data->smooth_x > data->target_x)
+				data->smooth_x -= data->move_speed;
+			if (data->smooth_y < data->target_y)
+				data->smooth_y += data->move_speed;
+			else if (data->smooth_y > data->target_y)
+				data->smooth_y -= data->move_speed;
 			check_var(data);
+			draw_tile(data, 0, data->last_playerx, data->last_playery);
+			redraw_player(data);
 		}
-		redraw_player(data);
 	}
 	return (0);
 }

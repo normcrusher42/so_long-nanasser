@@ -1,5 +1,22 @@
 #include "so_long.h"
 
+// Destroys all sprite images defined (hard-coded)
+void	clean_sprites(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < 5)
+	{
+		if (data->textures[i])
+		{
+			mlx_destroy_image(data->mlx_ptr, data->textures[i]);
+			data->textures[i] = NULL;
+		}
+		i++;
+	}
+}
+
 // Cleanup following program exit but with conditions for mlx functions
 void	exit_cleanup(t_data *data, int tick)
 {
@@ -11,7 +28,10 @@ void	exit_cleanup(t_data *data, int tick)
 	if (tick)
 	{
 		free_map(data->map, NULL, -1);
-		ft_printf("\033[0;32mSaga Complete!\033[0;37m\n");
+		if (!data->collectable)
+			ft_printf("\033[0;32mSaga Complete!\033[0;37m\n");
+		else
+			ft_printf("Saga not completed.. :(\n");
 		exit(0);
 	}
 }

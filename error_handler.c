@@ -53,20 +53,3 @@ void	error_out(char error_sign, char **map, char *line, int fd)
 		free_map(map, NULL, -1);
 	exit(1);
 }
-
-// Destroys all sprite images defined (hard-coded)
-void	clean_sprites(t_data *data)
-{
-	int	i;
-
-	i = 0;
-	while (i < 5)
-	{
-		if (data->textures[i])
-		{
-			mlx_destroy_image(data->mlx_ptr, data->textures[i]);
-			data->textures[i] = NULL;
-		}
-		i++;
-	}
-}
