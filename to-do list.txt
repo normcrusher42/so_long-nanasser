@@ -14,12 +14,18 @@ Now for le fun Part
 Sprite animation (in all directions) ✅
 Smooth movement ✅
 Input buffering ⚠ - (its fixed but skips more tiles/is misaligned when used. Still better than the jitterness previously)
-Sprint Key ❌❔ - (possibly scrapped)
-organize bonus header functions 🚫 ❗❗
-Sounds and music ❌ - (might leave on the side sadly)
-Obstacles (like a water pool) 🚫
+organize bonus header functions ✅
+Obstacles (like a water pool) ✅
+Have the Windbag open when complete 🚫
 Map themes 🚫
 2 Player support 🚫 | Otherwise, Camera scroll 🚫
+-------------------
+
+Sadly cancelled shit/left for later
+-------------------
+Sprint Key ❌❔ - (possibly scrapped)
+Sounds and music ❌ - (might leave on the side sadly)
+
 -------------------
 
 stickers for checker:
@@ -27,3 +33,4 @@ stickers for checker:
 🚫
 ❗❗ - Takes Priority
 ⚠ - works in certain conditions
+❌ - Scrapped

@@ -1,4 +1,4 @@
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 // Destroys all sprite images defined (hard-coded)
 void	clean_sprites(t_data *data)
@@ -6,7 +6,7 @@ void	clean_sprites(t_data *data)
 	int	i;
 
 	i = 0;
-	while (i < 5)
+	while (i < 6)
 	{
 		if (data->textures[i])
 		{

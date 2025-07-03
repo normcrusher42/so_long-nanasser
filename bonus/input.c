@@ -5,17 +5,9 @@ int	key_press(int key, t_data *data)
 {
 	if (data->moving)
 	{
-		data->buffered_key = key;
-		data->key_buffered = 1;
+		data->last_key = key;
 		return (0);
 	}
-	else if (!data->moving)
-	{
-		if (key == UP || key == W || key == LEFT || key == A
-			|| key == DOWN || key == S || key == RIGHT || key == D)
-			data->last_key = key;
-	}
-	data->key_buffered = 0;
 	if (key == ESC)
 		close_window(data, 1);
 	else if (key == UP || key == W)

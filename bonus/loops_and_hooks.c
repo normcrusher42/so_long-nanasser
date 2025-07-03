@@ -35,7 +35,7 @@ int	game_loop(void *param)
 	data = (t_data *)param;
 	if (data->moving)
 	{
-		if (++data->anim_tick >= 700)
+		if (++data->anim_tick >= 950)
 		{
 			data->anim_tick = 0;
 			data->anim_frame = (data->anim_frame + 1) % 3;
@@ -52,7 +52,7 @@ int	game_loop(void *param)
 			redraw_player(data);
 		}
 	}
-	if (!data->moving && data->last_key)
+	if (data->last_key)
 		check_last_key(data);
 	return (0);
 }

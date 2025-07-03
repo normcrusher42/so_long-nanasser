@@ -1,14 +1,18 @@
 #include "so_long_bonus.h"
 
 // Returns tile defintion to draw
-int	get_tile_index_no_p(char c)
+int	get_tile_index_bonus(char c)
 {
 	if (c == '1')
 		return (1);
+	else if (c == 'P')
+		return (2);
 	else if (c == 'C')
 		return (3);
 	else if (c == 'E')
 		return (4);
+	else if (c == 'O')
+		return (5);
 	return (0);
 }
 
@@ -24,7 +28,7 @@ void	redraw_player(t_data *data)
 	py = data->playery;
 	draw_tile(data, 0, px, py);
 	current = data->map[py][px];
-	i = get_tile_index_no_p(current);
+	i = get_tile_index_bonus(current);
 	if (i)
 		draw_tile(data, i, px, py);
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
@@ -61,6 +65,8 @@ void	move_player_dir(t_data *data, int x, int y, int dir)
 			return ;
 		else if (data->map[new_posy][new_posx] == 'C')
 			data->collected_pending = 1;
+		else if (data->map[new_posy][new_posx] == 'O')
+			data->death_pending = 1;
 		else if (data->map[new_posy][new_posx] == 'E' && !data->collectable)
 			close_window(data, 1);
 		update_var(data, new_posx, new_posy);

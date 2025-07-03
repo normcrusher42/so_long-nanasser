@@ -1,5 +1,19 @@
 #include "so_long.h"
 
+static void check_last_key(t_data *data)
+{
+	if (data->last_key == UP || data->last_key == W)
+		move_player(data, 0, -1);
+	else if (data->last_key == LEFT || data->last_key == A)
+		move_player(data, -1, 0);
+	else if (data->last_key == DOWN || data->last_key == S)
+		move_player(data, 0, 1);
+	else if (data->last_key == RIGHT || data->last_key == D)
+		move_player(data, 1, 0);
+	data->last_key = 0;
+	data->moveready = 0;
+}
+
 // Draws player move to the next tile (and draws the floor on previous tile)
 void	move_player(t_data *data, int x, int y)
 {
@@ -33,7 +47,10 @@ void	move_player(t_data *data, int x, int y)
 static int	key_press(int key, t_data *data)
 {
 	if (!data->moveready)
+	{
+		data->last_key = key;
 		return (0);
+	}
 	if (key == ESC)
 		close_window(data, 1);
 	else if (key == UP || key == W)
@@ -57,12 +74,14 @@ int	game_loop(void *param)
 	if (!data->moveready)
 	{
 		data->movedelay++;
-		if (data->movedelay >= 1000)
+		if (data->movedelay >= 1500)
 		{
 			data->moveready = 1;
 			data->movedelay = 0;
 		}
 	}
+	else if (data->last_key)
+		check_last_key(data);
 	return (0);
 }
 

@@ -59,7 +59,7 @@ typedef struct s_data
 {
 	void		*mlx_ptr;
 	void		*win_ptr;
-	void		*textures[5]; // map tile textures
+	void		*textures[6]; // map tile textures
 	void		*frames[12]; // character animation textures
 	int			img_width; // floor tile width size
 	int			img_height; // floor tile height size
@@ -73,6 +73,7 @@ typedef struct s_data
 	int			moveready; // player movement state (1 for movable 0 otherwise)
 	int			exitx; // exit posx
 	int			exity; // exit posy
+	int			last_key; // last key saved
 	char		**map;
 	// all these here are bonus related
 	int			smooth_x; // mid-pixel posx
@@ -88,9 +89,7 @@ typedef struct s_data
 	int			direction; // 0 = down, 1 = left, 2 = right, 3 = up
 	int			anim_frame; // curr animation frame
 	int			anim_tick; // speed of the animation
-	int			buffered_key; // the key that was pressed earlier
-	int			key_buffered; // 0 or 1 flag to initiate key buffer
-	int			last_key; // last key saved
+	int			death_pending; // When player walks over obstacle
 }	t_data;
 
 // ────── Error Handlers ────── //

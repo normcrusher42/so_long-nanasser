@@ -11,9 +11,6 @@ static int	ft_abs(int n)
 // Checks the info of the destination step
 static void	check_step(t_data *data)
 {
-	char	tile;
-	int		tile_index;
-
 	if (data->collected_pending)
 	{
 		data->collected_pending = 0;
@@ -21,18 +18,15 @@ static void	check_step(t_data *data)
 		data->map[data->playery][data->playerx] = '0';
 		draw_tile(data, 0, data->playerx, data->playery);
 	}
-	else
+	if (data->death_pending)
 	{
-		tile = data->map[data->playery][data->playerx];
-		tile_index = get_tile_index_no_p(tile);
+		data->map[data->playery][data->playerx] = '0';
 		draw_tile(data, 0, data->playerx, data->playery);
-		if (tile_index)
-			draw_tile(data, tile_index, data->playerx, data->playery);
-	}
-	if (!data->step_log)
-	{
-		data->step_log = 1;
-		display_status(data);
+		ft_printf("\033[1;31mPenelope, why?\n");
+		ft_printf("You know I'm too shy and terrified\033[0m\n");
+		free_map(data->map, NULL, -1);
+		close_window(data, 0);
+		exit(0);
 	}
 }
 
@@ -41,8 +35,6 @@ void	check_var(t_data *data)
 {
 	int		dx;
 	int		dy;
-	int		index;
-	char	tile;
 
 	dx = data->target_x - data->smooth_x;
 	dy = data->target_y - data->smooth_y;
@@ -52,15 +44,10 @@ void	check_var(t_data *data)
 		data->smooth_x = data->target_x;
 		data->smooth_y = data->target_y;
 		check_step(data);
-		if (data->key_buffered)
+		if (!data->step_log)
 		{
-			data->key_buffered = 0;
-			draw_tile(data, 0, data->last_playerx, data->last_playery);
-			tile = data->map[data->last_playery][data->last_playerx];
-			index = get_tile_index_no_p(tile);
-			if (index)
-				draw_tile(data, index, data->last_playerx, data->last_playery);
-			key_press(data->buffered_key, data);
+			data->step_log = 1;
+			display_status(data);
 		}
 	}
 }
