@@ -59,8 +59,13 @@ void	ready_window_render(t_data *data)
 			&size.collectabley);
 	data->textures[4] = mlx_xpm_file_to_image(data->mlx_ptr,
 			"assets/textures/exit.xpm", &size.exitx, &size.exity);
+	data->textures[6] = mlx_xpm_file_to_image(data->mlx_ptr,
+			"assets/textures/exit_1.xpm", &size.exitx, &size.exity);
+	data->textures[7] = mlx_xpm_file_to_image(data->mlx_ptr,
+			"assets/textures/exit_2.xpm", &size.exitx, &size.exity);
 	if (!data->textures[0] || !data->textures[1] || !data->textures[2]
-		|| !data->textures[3] || !data->textures[4])
+		|| !data->textures[3] || !data->textures[4] || !data->textures[6]
+		|| !data->textures[7])
 	{
 		close_window(data, 0);
 		error_out('S', data->map, NULL, -1);

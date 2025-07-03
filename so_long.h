@@ -59,7 +59,7 @@ typedef struct s_data
 {
 	void		*mlx_ptr;
 	void		*win_ptr;
-	void		*textures[6]; // map tile textures
+	void		*textures[8]; // map tile textures
 	void		*frames[12]; // character animation textures
 	int			img_width; // floor tile width size
 	int			img_height; // floor tile height size
@@ -90,6 +90,8 @@ typedef struct s_data
 	int			anim_frame; // curr animation frame
 	int			anim_tick; // speed of the animation
 	int			death_pending; // When player walks over obstacle
+	int			exit_anim;
+	int			exit_anim_tick;
 }	t_data;
 
 // ────── Error Handlers ────── //
@@ -118,8 +120,7 @@ void		hooks_config(t_data *data);
 // Game functionality //
 int			game_loop(void *param);
 int			get_tile_index(char c);
-
-// ────── Window Canvas ────── //
+// Window Canvas & Movement //
 void		ready_window_render(t_data *data);
 void		draw_tile(t_data *data, int tile, int x, int y);
 void		move_player(t_data *data, int x, int y);

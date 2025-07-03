@@ -6,7 +6,7 @@ void	clean_sprites(t_data *data)
 	int	i;
 
 	i = 0;
-	while (i < 6)
+	while (i < 8)
 	{
 		if (data->textures[i])
 		{
@@ -21,7 +21,7 @@ void	clean_sprites(t_data *data)
 		if (data->frames[i])
 		{
 			mlx_destroy_image(data->mlx_ptr, data->frames[i]);
-			data->textures[i] = NULL;
+			data->frames[i] = NULL;
 		}
 		i++;
 	}

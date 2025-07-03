@@ -36,6 +36,14 @@ void	check_var(t_data *data)
 	int		dx;
 	int		dy;
 
+	if (data->smooth_x < data->target_x)
+		data->smooth_x += data->move_speed;
+	else if (data->smooth_x > data->target_x)
+		data->smooth_x -= data->move_speed;
+	if (data->smooth_y < data->target_y)
+		data->smooth_y += data->move_speed;
+	else if (data->smooth_y > data->target_y)
+		data->smooth_y -= data->move_speed;
 	dx = data->target_x - data->smooth_x;
 	dy = data->target_y - data->smooth_y;
 	if (ft_abs(dx) <= data->move_speed && ft_abs(dy) <= data->move_speed)

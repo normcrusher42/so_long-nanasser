@@ -5,8 +5,6 @@ int	get_tile_index_bonus(char c)
 {
 	if (c == '1')
 		return (1);
-	else if (c == 'P')
-		return (2);
 	else if (c == 'C')
 		return (3);
 	else if (c == 'E')

@@ -6,7 +6,7 @@ void	clean_sprites(t_data *data)
 	int	i;
 
 	i = 0;
-	while (i < 5)
+	while (i < 8)
 	{
 		if (data->textures[i])
 		{

@@ -27,6 +27,13 @@ void	display_status(t_data *data)
 	data->moves++;
 }
 
+static void	exit_anim(t_data *data)
+{
+	data->exit_anim = 1 - data->exit_anim;
+	draw_tile(data, 0, data->exitx, data->exity);
+	draw_tile(data, 6 + data->exit_anim, data->exitx, data->exity);
+}
+
 // Handles events upon reloading hooks again (game speed, tile status, etc..)
 int	game_loop(void *param)
 {
@@ -39,14 +46,6 @@ int	game_loop(void *param)
 		{
 			data->anim_tick = 0;
 			data->anim_frame = (data->anim_frame + 1) % 3;
-			if (data->smooth_x < data->target_x)
-				data->smooth_x += data->move_speed;
-			else if (data->smooth_x > data->target_x)
-				data->smooth_x -= data->move_speed;
-			if (data->smooth_y < data->target_y)
-				data->smooth_y += data->move_speed;
-			else if (data->smooth_y > data->target_y)
-				data->smooth_y -= data->move_speed;
 			check_var(data);
 			draw_tile(data, 0, data->last_playerx, data->last_playery);
 			redraw_player(data);
@@ -54,6 +53,14 @@ int	game_loop(void *param)
 	}
 	if (data->last_key)
 		check_last_key(data);
+	if (!data->collectable)
+	{
+		if (++data->exit_anim_tick >= 1200)
+		{
+			data->exit_anim_tick = 0;
+			exit_anim(data);
+		}
+	}
 	return (0);
 }
 
