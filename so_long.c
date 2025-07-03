@@ -38,15 +38,11 @@ int	main(int ac, char **av)
 		hooks_config(&data);
 		ready_window_render(&data);
 		mlx_loop(data.mlx_ptr);
-		return (0);
 	}
-	else
-	{
-		ft_putendl_fd("\033[1;31mError\033[0;31m", 2);
-		if (ac < 2)
-			ft_putendl_fd("This ain't the piscine btw, add a program argument", 2);
-		else if (ac > 2)
-			ft_putendl_fd("Too many arguments!! Only 1 is needed.", 2);
-	}
+	ft_putendl_fd("\033[1;31mError\033[0;31m", 2);
+	if (ac < 2)
+		ft_putendl_fd("This ain't the piscine btw, add a program argument", 2);
+	else if (ac > 2)
+		ft_putendl_fd("Too many arguments!! Only 1 is needed.", 2);
 	return (1);
 }

@@ -32,9 +32,17 @@ void	exit_cleanup(t_data *data, int tick)
 	{
 		free_map(data->map, NULL, -1);
 		if (!data->collectable)
+		{
 			ft_printf("\033[0;32mEpic Saga Complete!\033[0;37m\n");
+			ft_printf("Only took like [\033[1;33m%d\033[0;37m] steps!\n",
+				data->moves);
+		}
 		else
+		{
 			ft_printf("Saga not completed.. :(\n");
+			ft_printf("You only had [\033[1;33m%d\033[0;37m] Fruits left...\n",
+				data->collectable);
+		}
 		exit(0);
 	}
 }

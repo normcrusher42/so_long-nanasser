@@ -39,9 +39,7 @@
 
 # endif
 
-//------------------------//
-//   Sprite image sizes   //
-//------------------------//
+// ────── Sprite image sizes ────── //
 typedef struct s_size
 {
 	int			playerx;
@@ -56,9 +54,7 @@ typedef struct s_size
 	int			exity;
 }	t_size;
 
-//------------------------//
-//   Map & Texture data   //
-//------------------------//
+// ────── Map & Texture data ────── //
 typedef struct s_data
 {
 	void		*mlx_ptr;
@@ -94,18 +90,16 @@ typedef struct s_data
 	int			anim_tick; // speed of the animation
 	int			buffered_key; // the key that was pressed earlier
 	int			key_buffered; // 0 or 1 flag to initiate key buffer
-	int			sprinting;
+	int			last_key; // last key saved
 }	t_data;
 
-// Error Handlers //
+// ────── Error Handlers ────── //
 void		error_out(char error_sign, char **map, char *line, int fd);
 void		free_map(char **map, char *line, int fd);
 int			close_window(t_data *data, int tick);
 void		clean_sprites(t_data *data);
 
-//-----------------------//
-//   Map Parsing tools   //
-//-----------------------//
+// ─────────────── Map Parsing tools ─────────────── //
 char		**map_reader(char *file_path, t_data *data);
 char		**dup_map(char **map);
 // Map size grabber //
@@ -120,17 +114,13 @@ void		flood_fill(char **map, int x, int y, char c);
 bool		goals_reachable(char **map_cpy, char c);
 void		only_player(char **map);
 
-//----------------------//
-//    Hooks settings    //
-//----------------------//
+// ────── Hooks settings ────── //
 void		hooks_config(t_data *data);
 // Game functionality //
 int			game_loop(void *param);
 int			get_tile_index(char c);
 
-//----------------------//
-//     Window Canvas    //
-//----------------------//
+// ────── Window Canvas ────── //
 void		ready_window_render(t_data *data);
 void		draw_tile(t_data *data, int tile, int x, int y);
 void		move_player(t_data *data, int x, int y);
