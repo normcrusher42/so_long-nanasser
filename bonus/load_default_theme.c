@@ -64,7 +64,7 @@ static void	init_obstacle_anim(t_data *data)
 	}
 }
 
-int	default_tile_theme(t_data *data)
+void	default_tile_theme(t_data *data)
 {
 	int			i;
 	int			w;
@@ -85,5 +85,4 @@ int	default_tile_theme(t_data *data)
 	}
 	initialize_tiles(data);
 	init_obstacle_anim(data);
-	return (0);
 }

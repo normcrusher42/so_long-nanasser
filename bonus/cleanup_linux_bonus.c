@@ -13,18 +13,20 @@ void	clean_sprites(t_data *data)
 			mlx_destroy_image(data->mlx_ptr, data->frames[i]);
 			data->frames[i] = NULL;
 		}
-		if (data->textures[i])
+		if (data->textures[i] && i < 8)
 		{
 			mlx_destroy_image(data->mlx_ptr, data->textures[i]);
 			data->textures[i] = NULL;
 		}
-		if (data->obstacle[i])
+		if (data->obstacle[i] && i < 4)
 		{
 			mlx_destroy_image(data->mlx_ptr, data->obstacle[i]);
 			data->obstacle[i] = NULL;
 		}
 		i++;
 	}
+	if (data->obstacles)
+		free(data->obstacles);
 }
 
 // Cleanup following program exit but with conditions for mlx functions

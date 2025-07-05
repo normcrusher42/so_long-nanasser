@@ -59,6 +59,8 @@ void	map_theme(t_data *data, char *theme)
 		ft_printf("Unknown Theme. Using default: \"Winion island\"\n");
 		default_tile_theme(data);
 	}
+	count_obstacle(data);
+	save_obstacles(data);
 }
 
 // le Magie 𝓬𝓸𝓶𝓶𝓮𝓷𝓬𝓮
@@ -79,8 +81,8 @@ int	main(int ac, char **av)
 		if (ac == 3)
 			map_theme(&data, av[2]);
 		else
-			default_tile_theme(data);
-		draw_map(data);
+			default_tile_theme(&data);
+		draw_map(&data);
 		display_status(&data);
 		mlx_loop(data.mlx_ptr);
 		return (0);

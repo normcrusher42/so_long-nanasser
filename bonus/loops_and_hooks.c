@@ -34,17 +34,67 @@ static void	exit_anim(t_data *data)
 	draw_tile(data, 5 + data->exit_anim, data->exitx, data->exity);
 }
 
-int	count_obstacle(t_data *data)
+void	count_obstacle(t_data *data)
 {
-	
+	int	i;
+	int	j;
+
+	i = -1;
+	while (data->map[++i])
+	{
+		j = 0;
+		while (data->map[i][j])
+		{
+			if (data->map[i][j] == 'O')
+				data->obstacle_count++;
+			j++;
+		}
+	}
+}
+
+void	save_obstacles(t_data *data)
+{
+	int	x;
+	int	y;
+	int	i;
+
+	data->obstacles = malloc(sizeof(t_point) * data->obstacle_count);
+	if (!data->obstacles)
+		error_out('M', data->map, NULL, -1);
+	y = 0;
+	i = 0;
+	while (data->map[y])
+	{
+		x = 0;
+		while (data->map[y][x])
+		{
+			if (data->map[y][x] == 'O')
+			{
+				data->obstacles[i].x = x;
+				data->obstacles[i++].y = y;
+			}
+			x++;
+		}
+		y++;
+	}
 }
 
 void	obstacle_anim(t_data *data)
 {
+	int	i;
+
+	i = 0;
 	if (++data->obstacle_anim_tick >= 1000)
 	{
 		data->obstacle_anim_tick = 0;
-		
+		data->obstacle_anim = (data->obstacle_anim + 1) % 4;
+		while (i < data->obstacle_count)
+		{
+			draw_tile(data, 0, data->obstacles[i].x, data->obstacles[i].y);
+			draw_tile_obstacle(data, 0 + data->obstacle_anim,
+			data->obstacles[i].x, data->obstacles[i].y);
+			i++;
+		}
 	}
 }
 

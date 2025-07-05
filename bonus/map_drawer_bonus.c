@@ -7,6 +7,12 @@ void	draw_tile(t_data *data, int tile, int x, int y)
 		x * data->img_width, y * data->img_height);
 }
 
+void	draw_tile_obstacle(t_data *data, int tile, int x, int y)
+{
+	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->obstacle[tile],
+		x * data->img_width, y * data->img_height);
+}
+
 // Self-Explanatory. 
 void	draw_map(t_data *data)
 {

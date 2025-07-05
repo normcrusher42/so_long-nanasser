@@ -25,6 +25,8 @@ void	clean_sprites(t_data *data)
 		}
 		i++;
 	}
+	if (data->obstacles)
+		free(data->obstacles);
 }
 
 // Cleanup following program exit but with conditions for mlx functions

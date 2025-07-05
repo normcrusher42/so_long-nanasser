@@ -30,7 +30,7 @@ static void	initialize_tiles(t_data *data)
 			"assets/themes/Sea/collectable.xpm", &size.collectablex,
 			&size.collectabley);
 	data->textures[4] = mlx_xpm_file_to_image(data->mlx_ptr,
-			"assets/themes/Sea/exit.xpm", &size.exitx, &size.exity);
+			"assets/textures/exit.xpm", &size.exitx, &size.exity);
 	data->textures[5] = mlx_xpm_file_to_image(data->mlx_ptr,
 			"assets/textures/exit_1.xpm", &size.exitx, &size.exity);
 	data->textures[6] = mlx_xpm_file_to_image(data->mlx_ptr,
@@ -64,7 +64,7 @@ static void	init_obstacle_anim(t_data *data)
 	}
 }
 
-int	sea_tile_theme(t_data *data)
+void	sea_tile_theme(t_data *data)
 {
 	int			i;
 	int			w;
@@ -85,5 +85,4 @@ int	sea_tile_theme(t_data *data)
 	}
 	initialize_tiles(data);
 	init_obstacle_anim(data);
-	return (0);
 }
