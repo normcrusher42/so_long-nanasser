@@ -29,9 +29,3 @@ void	draw_map(t_data *data)
 	}
 	draw_tile(data, 2, data->playerx, data->playery);
 }
-
-// Store Textures into the texture array and draws the map
-void	ready_window_render(t_data *data)
-{
-	draw_map(data);
-}

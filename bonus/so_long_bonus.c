@@ -40,18 +40,23 @@ static void	silly_arg_error(int ac)
 	ft_putendl_fd("\033[1;31mError\033[0;31m", 2);
 	if (ac < 2)
 		ft_putendl_fd("This ain't the piscine btw, add a program argument", 2);
-	else if (ac > 2)
-		ft_putendl_fd("Too many arguments!! Only 1 is needed.", 2);
+	else if (ac > 3)
+		ft_putendl_fd("Too many arguments!! At least 2 is needed.", 2);
 	exit(1);
 }
 
 void	map_theme(t_data *data, char *theme)
 {
-	if (ft_strncmp(theme, "Sea", 3))
+	if (!ft_strncmp(theme, "sea", 3) || !ft_strncmp(theme, "Sea", 3))
 		sea_tile_theme(data);
+	else if (!ft_strncmp(theme, "winion", 6) || !ft_strncmp(theme, "Winion", 6)
+			|| !ft_strncmp(theme, "Winion island", 13)
+			|| !ft_strncmp(theme, "island", 6)
+			|| !ft_strncmp(theme, "Island", 6))
+		default_tile_theme(data);
 	else
 	{
-		ft_printf("Unknown Theme. Using default: \"Winion Island\"\n");
+		ft_printf("Unknown Theme. Using default: \"Winion island\"\n");
 		default_tile_theme(data);
 	}
 }
@@ -73,7 +78,9 @@ int	main(int ac, char **av)
 		hooks_config(&data);
 		if (ac == 3)
 			map_theme(&data, av[2]);
-		ready_window_render(&data);
+		else
+			default_tile_theme(data);
+		draw_map(data);
 		display_status(&data);
 		mlx_loop(data.mlx_ptr);
 		return (0);

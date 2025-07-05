@@ -34,7 +34,14 @@ static void	exit_anim(t_data *data)
 	draw_tile(data, 5 + data->exit_anim, data->exitx, data->exity);
 }
 
-void	obstacle_anim()
+void	obstacle_anim(t_data *data)
+{
+	if (++data->obstacle_anim_tick >= 1000)
+	{
+		data->obstacle_anim_tick = 0;
+		
+	}
+}
 
 // Handles events upon reloading hooks again (game speed, tile status, etc..)
 int	game_loop(void *param)
@@ -55,7 +62,7 @@ int	game_loop(void *param)
 	}
 	if (data->last_key)
 		check_last_key(data);
-	
+	obstacle_anim(data);
 	if (!data->collectable)
 	{
 		if (++data->exit_anim_tick >= 1200)

@@ -91,8 +91,11 @@ typedef struct s_data
 	int			anim_frame; // curr animation frame
 	int			anim_tick; // speed of the animation
 	int			death_pending; // When player walks over obstacle
-	int			exit_anim;
-	int			exit_anim_tick;
+	int			exit_anim; // exit animation frame;
+	int			exit_anim_tick; // exit animation speed
+	int			obstacle_anim; // obstacle animation frame
+	int			obstacle_anim_tick // obstacle animation speed
+	int			obstacle_count;
 }	t_data;
 
 // ────── Error Handlers ────── //
