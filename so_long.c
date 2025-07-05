@@ -22,27 +22,32 @@ static void	create_window(t_data *data)
 	}
 }
 
-// le Magie 𝓬𝓸𝓶𝓶𝓮𝓷𝓬𝓮
-int	main(int ac, char **av)
+// just a silly exit error message for lengthy/short args
+static void	silly_arg_error(int ac)
 {
-	t_data	data;
-
-	if (ac == 2)
-	{
-		data = (t_data){0};
-		ready_map(&data, av[1]);
-		data.mlx_ptr = mlx_init();
-		if (!data.mlx_ptr)
-			error_out('M', data.map, NULL, -1);
-		create_window(&data);
-		hooks_config(&data);
-		ready_window_render(&data);
-		mlx_loop(data.mlx_ptr);
-	}
 	ft_putendl_fd("\033[1;31mError\033[0;31m", 2);
 	if (ac < 2)
 		ft_putendl_fd("This ain't the piscine btw, add a program argument", 2);
 	else if (ac > 2)
 		ft_putendl_fd("Too many arguments!! Only 1 is needed.", 2);
-	return (1);
+	exit(1);
+}
+
+// le Magie 𝓬𝓸𝓶𝓶𝓮𝓷𝓬𝓮
+int	main(int ac, char **av)
+{
+	t_data	data;
+
+	if (ac != 2)
+		silly_arg_error(ac);
+	data = (t_data){0};
+	ready_map(&data, av[1]);
+	data.mlx_ptr = mlx_init();
+	if (!data.mlx_ptr)
+		error_out('M', data.map, NULL, -1);
+	create_window(&data);
+	hooks_config(&data);
+	ready_window_render(&data);
+	mlx_loop(data.mlx_ptr);
+	return (0);
 }

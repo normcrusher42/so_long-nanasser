@@ -34,12 +34,34 @@ static void	create_window(t_data *data)
 	}
 }
 
+// just a silly exit error message for lengthy/short args
+static void	silly_arg_error(int ac)
+{
+	ft_putendl_fd("\033[1;31mError\033[0;31m", 2);
+	if (ac < 2)
+		ft_putendl_fd("This ain't the piscine btw, add a program argument", 2);
+	else if (ac > 2)
+		ft_putendl_fd("Too many arguments!! Only 1 is needed.", 2);
+	exit(1);
+}
+
+void	map_theme(t_data *data, char *theme)
+{
+	if (ft_strncmp(theme, "Sea", 3))
+		sea_tile_theme(data);
+	else
+	{
+		ft_printf("Unknown Theme. Using default: \"Winion Island\"\n");
+		default_tile_theme(data);
+	}
+}
+
 // le Magie 𝓬𝓸𝓶𝓶𝓮𝓷𝓬𝓮
 int	main(int ac, char **av)
 {
 	t_data	data;
 
-	if (ac == 2)
+	if (ac == 2 || ac == 3)
 	{
 		data = (t_data){0};
 		ready_map(&data, av[1]);
@@ -49,15 +71,12 @@ int	main(int ac, char **av)
 		create_window(&data);
 		set_variables(&data);
 		hooks_config(&data);
+		if (ac == 3)
+			map_theme(&data, av[2]);
 		ready_window_render(&data);
 		display_status(&data);
 		mlx_loop(data.mlx_ptr);
 		return (0);
 	}
-	ft_putendl_fd("\033[1;31mError\033[0;31m", 2);
-	if (ac < 2)
-		ft_putendl_fd("This ain't the piscine btw, add a program argument", 2);
-	else if (ac > 2)
-		ft_putendl_fd("Too many arguments!! Only 1 is needed.", 2);
-	return (1);
+	silly_arg_error(ac);
 }

@@ -18,13 +18,13 @@ organize bonus header functions ✅
 Obstacles (like a water pool) ✅
 Have the Windbag open when complete ✅
 Map themes 🚫
-2 Player support 🚫 | Otherwise, Camera scroll 🚫
 -------------------
 
 Sadly cancelled shit/left for later
 -------------------
 Sprint Key ❌❔ - (possibly scrapped)
 Sounds and music ❌ - (might leave on the side sadly)
+2 Player support | Otherwise, Camera scroll ❌ - (don't have enough time + gotta move on either ways)
 -------------------
 
 stickers for checker:

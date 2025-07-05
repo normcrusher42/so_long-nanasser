@@ -6,22 +6,22 @@ void	clean_sprites(t_data *data)
 	int	i;
 
 	i = 0;
-	while (i < 8)
-	{
-		if (data->textures[i])
-		{
-			mlx_destroy_image(data->mlx_ptr, data->textures[i]);
-			data->textures[i] = NULL;
-		}
-		i++;
-	}
-	i = 0;
 	while (i < 12)
 	{
 		if (data->frames[i])
 		{
 			mlx_destroy_image(data->mlx_ptr, data->frames[i]);
 			data->frames[i] = NULL;
+		}
+		if (data->textures[i])
+		{
+			mlx_destroy_image(data->mlx_ptr, data->textures[i]);
+			data->textures[i] = NULL;
+		}
+		if (data->obstacle[i])
+		{
+			mlx_destroy_image(data->mlx_ptr, data->obstacle[i]);
+			data->obstacle[i] = NULL;
 		}
 		i++;
 	}

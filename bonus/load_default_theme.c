@@ -16,7 +16,7 @@ static void	initialize_frames(const char **frames)
 	frames[11] = "assets/textures/Back/Back2.xpm";
 }
 
-void	initialize_tiles(t_data *data)
+static void	initialize_tiles(t_data *data)
 {
 	t_size	size;
 
@@ -32,14 +32,39 @@ void	initialize_tiles(t_data *data)
 	data->textures[4] = mlx_xpm_file_to_image(data->mlx_ptr,
 			"assets/textures/exit.xpm", &size.exitx, &size.exity);
 	data->textures[5] = mlx_xpm_file_to_image(data->mlx_ptr,
-			"assets/textures/obstacle.xpm", &size.exitx, &size.exity);
-	data->textures[6] = mlx_xpm_file_to_image(data->mlx_ptr,
 			"assets/textures/exit_1.xpm", &size.exitx, &size.exity);
-	data->textures[7] = mlx_xpm_file_to_image(data->mlx_ptr,
+	data->textures[6] = mlx_xpm_file_to_image(data->mlx_ptr,
 			"assets/textures/exit_2.xpm", &size.exitx, &size.exity);
+	if (!data->textures[0] || !data->textures[1] || !data->textures[2]
+		|| !data->textures[3] || !data->textures[4] || !data->textures[5]
+		|| !data->textures[6])
+	{
+		close_window(data, 0);
+		error_out('S', data->map, NULL, -1);
+	}
 }
 
-int	load_frames(t_data *data)
+static void	init_obstacle_anim(t_data *data)
+{
+	t_size	size;
+
+	data->obstacle[0] = mlx_xpm_file_to_image(data->mlx_ptr,
+			"assets/textures/obstacle.xpm", &size.wallx, &size.wally);
+	data->obstacle[1] = mlx_xpm_file_to_image(data->mlx_ptr,
+			"assets/textures/obstacle.xpm", &size.wallx, &size.wally);
+	data->obstacle[2] = mlx_xpm_file_to_image(data->mlx_ptr,
+			"assets/textures/obstacle.xpm", &size.wallx, &size.wally);
+	data->obstacle[3] = mlx_xpm_file_to_image(data->mlx_ptr,
+			"assets/textures/obstacle.xpm", &size.wallx, &size.wally);
+	if (!data->obstacle[0] || !data->obstacle[1] || !data->obstacle[2]
+		|| !data->obstacle[3])
+	{
+		close_window(data, 0);
+		error_out('S', data->map, NULL, -1);
+	}
+}
+
+int	default_tile_theme(t_data *data)
 {
 	int			i;
 	int			w;
@@ -58,5 +83,7 @@ int	load_frames(t_data *data)
 			error_out('S', data->map, NULL, -1);
 		}
 	}
+	initialize_tiles(data);
+	init_obstacle_anim(data);
 	return (0);
 }

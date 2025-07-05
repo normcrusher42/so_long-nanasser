@@ -33,8 +33,5 @@ void	draw_map(t_data *data)
 // Store Textures into the texture array and draws the map
 void	ready_window_render(t_data *data)
 {
-	load_frames(data);
-	initialize_tiles(data);
-	
 	draw_map(data);
 }

@@ -4,8 +4,8 @@
 # include "../so_long.h"
 
 // ───────────── Rendering / Animation ───────────── //
-int		load_frames(t_data *data);
-void	initialize_tiles(t_data *data);
+int		default_tile_theme(t_data *data);
+void	sea_tile_theme(t_data *data);
 void	redraw_player(t_data *data);
 int		get_tile_index_bonus(char c);
 

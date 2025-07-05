@@ -59,8 +59,9 @@ typedef struct s_data
 {
 	void		*mlx_ptr;
 	void		*win_ptr;
-	void		*textures[8]; // map tile textures
+	void		*textures[7]; // map tile textures
 	void		*frames[12]; // character animation textures
+	void		*obstacle[4];
 	int			img_width; // floor tile width size
 	int			img_height; // floor tile height size
 	int			mapx; // map width size
