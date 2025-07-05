@@ -54,6 +54,12 @@ typedef struct s_size
 	int			exity;
 }	t_size;
 
+typedef struct s_point 
+{
+	int	x;
+	int	y;
+}	t_point;
+
 // ────── Map & Texture data ────── //
 typedef struct s_data
 {
@@ -94,8 +100,9 @@ typedef struct s_data
 	int			exit_anim; // exit animation frame;
 	int			exit_anim_tick; // exit animation speed
 	int			obstacle_anim; // obstacle animation frame
-	int			obstacle_anim_tick // obstacle animation speed
+	int			obstacle_anim_tick; // obstacle animation speed
 	int			obstacle_count;
+	t_point		*obstacles;
 }	t_data;
 
 // ────── Error Handlers ────── //

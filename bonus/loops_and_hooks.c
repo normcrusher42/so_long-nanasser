@@ -34,6 +34,11 @@ static void	exit_anim(t_data *data)
 	draw_tile(data, 5 + data->exit_anim, data->exitx, data->exity);
 }
 
+int	count_obstacle(t_data *data)
+{
+	
+}
+
 void	obstacle_anim(t_data *data)
 {
 	if (++data->obstacle_anim_tick >= 1000)
