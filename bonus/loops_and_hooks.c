@@ -35,7 +35,7 @@ int	game_loop(void *param)
 	data = (t_data *)param;
 	if (data->moving)
 	{
-		if (++data->anim_tick >= 1200)
+		if (++data->anim_tick >= 900)
 		{
 			data->anim_tick = 0;
 			data->anim_frame = (data->anim_frame + 1) % 3;
