@@ -45,24 +45,6 @@ static void	silly_arg_error(int ac)
 	exit(1);
 }
 
-void	map_theme(t_data *data, char *theme)
-{
-	if (!ft_strncmp(theme, "sea", 3) || !ft_strncmp(theme, "Sea", 3))
-		sea_tile_theme(data);
-	else if (!ft_strncmp(theme, "winion", 6) || !ft_strncmp(theme, "Winion", 6)
-			|| !ft_strncmp(theme, "Winion island", 13)
-			|| !ft_strncmp(theme, "island", 6)
-			|| !ft_strncmp(theme, "Island", 6))
-		default_tile_theme(data);
-	else
-	{
-		ft_printf("Unknown Theme. Using default: \"Winion island\"\n");
-		default_tile_theme(data);
-	}
-	count_obstacle(data);
-	save_obstacles(data);
-}
-
 // le Magie 𝓬𝓸𝓶𝓶𝓮𝓷𝓬𝓮
 int	main(int ac, char **av)
 {

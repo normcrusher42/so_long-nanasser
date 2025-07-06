@@ -13,12 +13,12 @@ void	clean_sprites(t_data *data)
 			mlx_destroy_image(data->mlx_ptr, data->frames[i]);
 			data->frames[i] = NULL;
 		}
-		if (data->textures[i])
+		if (data->textures[i] && i < 7)
 		{
 			mlx_destroy_image(data->mlx_ptr, data->textures[i]);
 			data->textures[i] = NULL;
 		}
-		if (data->obstacle[i])
+		if (data->obstacle[i] && i < 4)
 		{
 			mlx_destroy_image(data->mlx_ptr, data->obstacle[i]);
 			data->obstacle[i] = NULL;
@@ -48,7 +48,7 @@ void	exit_cleanup(t_data *data, int tick)
 		}
 		else
 		{
-			ft_printf("Saga not completed.. :(\n");
+			ft_printf("Saga incomplete.. :(\n");
 			ft_printf("You only had [\033[1;33m%d\033[0;37m] Fruits left...\n",
 				data->collectable);
 		}

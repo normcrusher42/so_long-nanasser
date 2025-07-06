@@ -15,8 +15,11 @@ MLX_LIB = $(MLX_DIR)/libmlx.a
 SRC = ./so_long.c map_parser.c error_handler.c map_validator.c map_path_validator.c map_utils.c \
 hooks_setup_and_events.c map_drawer.c \
 
-SRC_BONUS = $(BONUS_DIR)so_long_bonus.c $(BONUS_DIR)map_parser_bonus.c error_handler.c $(BONUS_DIR)map_validator_bonus.c $(BONUS_DIR)map_path_validator_bonus.c map_utils.c \
-$(BONUS_DIR)loops_and_hooks.c $(BONUS_DIR)load_default_theme.c $(BONUS_DIR)load_sea_theme.c $(BONUS_DIR)input.c $(BONUS_DIR)logic.c $(BONUS_DIR)player.c $(BONUS_DIR)map_drawer_bonus.c \
+SRC_BONUS = $(BONUS_DIR)so_long_bonus.c $(BONUS_DIR)map_parser_bonus.c error_handler.c \
+$(BONUS_DIR)map_validator_bonus.c $(BONUS_DIR)map_path_validator_bonus.c map_utils.c \
+$(BONUS_DIR)loops_and_hooks.c $(BONUS_DIR)load_default_theme.c $(BONUS_DIR)load_sea_theme.c \
+$(BONUS_DIR)input.c $(BONUS_DIR)logic.c $(BONUS_DIR)player.c $(BONUS_DIR)map_drawer_bonus.c \
+$(BONUS_DIR)alt_animations.c
 
 # Object files
 OBJ = $(SRC:%.c=$(OBJ_PATH)%.o)

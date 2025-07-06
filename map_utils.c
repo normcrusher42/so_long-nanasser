@@ -12,6 +12,11 @@ void	get_map_size(t_data *data)
 		y++;
 	while (data->map[y - 1][x])
 		x++;
+	if (x > 51 || y > 27)
+	{
+		close_window(data, 0);
+		error_out('1', data->map, NULL, -1);
+	}
 	data->mapx = x;
 	data->mapy = y;
 }

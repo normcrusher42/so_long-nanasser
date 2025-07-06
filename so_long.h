@@ -54,7 +54,7 @@ typedef struct s_size
 	int			exity;
 }	t_size;
 
-typedef struct s_point 
+typedef struct s_point
 {
 	int	x;
 	int	y;
@@ -101,8 +101,9 @@ typedef struct s_data
 	int			exit_anim_tick; // exit animation speed
 	int			obstacle_anim; // obstacle animation frame
 	int			obstacle_anim_tick; // obstacle animation speed
-	int			obstacle_count;
-	t_point		*obstacles;
+	int			obstacle_count; // counts the number of obstacles
+	t_point		*obstacles; // stores obstacle positions
+	int			on_whirlpool; // flag to check if player is on whirlpool
 }	t_data;
 
 // ────── Error Handlers ────── //
@@ -136,5 +137,6 @@ void		ready_window_render(t_data *data);
 void		draw_tile(t_data *data, int tile, int x, int y);
 void		move_player(t_data *data, int x, int y);
 void		draw_map(t_data *data);
+void		exit_anim(t_data *data);
 
 #endif

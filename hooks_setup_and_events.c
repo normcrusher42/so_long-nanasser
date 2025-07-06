@@ -64,12 +64,7 @@ static int	key_press(int key, t_data *data)
 	data->moveready = 0;
 	return (0);
 }
-static void	exit_anim(t_data *data)
-{
-	data->exit_anim = 1 - data->exit_anim;
-	draw_tile(data, 0, data->exitx, data->exity);
-	draw_tile(data, 6 + data->exit_anim, data->exitx, data->exity);
-}
+
 // Movement delay function when Key is held down
 int	game_loop(void *param)
 {
@@ -87,14 +82,7 @@ int	game_loop(void *param)
 	}
 	else if (data->last_key)
 		check_last_key(data);
-	if (!data->collectable)
-	{
-		if (++data->exit_anim_tick >= 1200)
-		{
-			data->exit_anim_tick = 0;
-			exit_anim(data);
-		}
-	}
+	exit_anim(data);
 	return (0);
 }
 

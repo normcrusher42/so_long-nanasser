@@ -27,77 +27,6 @@ void	display_status(t_data *data)
 	data->moves++;
 }
 
-static void	exit_anim(t_data *data)
-{
-	data->exit_anim = 1 - data->exit_anim;
-	draw_tile(data, 0, data->exitx, data->exity);
-	draw_tile(data, 5 + data->exit_anim, data->exitx, data->exity);
-}
-
-void	count_obstacle(t_data *data)
-{
-	int	i;
-	int	j;
-
-	i = -1;
-	while (data->map[++i])
-	{
-		j = 0;
-		while (data->map[i][j])
-		{
-			if (data->map[i][j] == 'O')
-				data->obstacle_count++;
-			j++;
-		}
-	}
-}
-
-void	save_obstacles(t_data *data)
-{
-	int	x;
-	int	y;
-	int	i;
-
-	data->obstacles = malloc(sizeof(t_point) * data->obstacle_count);
-	if (!data->obstacles)
-		error_out('M', data->map, NULL, -1);
-	y = 0;
-	i = 0;
-	while (data->map[y])
-	{
-		x = 0;
-		while (data->map[y][x])
-		{
-			if (data->map[y][x] == 'O')
-			{
-				data->obstacles[i].x = x;
-				data->obstacles[i++].y = y;
-			}
-			x++;
-		}
-		y++;
-	}
-}
-
-void	obstacle_anim(t_data *data)
-{
-	int	i;
-
-	i = 0;
-	if (++data->obstacle_anim_tick >= 1000)
-	{
-		data->obstacle_anim_tick = 0;
-		data->obstacle_anim = (data->obstacle_anim + 1) % 4;
-		while (i < data->obstacle_count)
-		{
-			draw_tile(data, 0, data->obstacles[i].x, data->obstacles[i].y);
-			draw_tile_obstacle(data, 0 + data->obstacle_anim,
-			data->obstacles[i].x, data->obstacles[i].y);
-			i++;
-		}
-	}
-}
-
 // Handles events upon reloading hooks again (game speed, tile status, etc..)
 int	game_loop(void *param)
 {
@@ -106,7 +35,7 @@ int	game_loop(void *param)
 	data = (t_data *)param;
 	if (data->moving)
 	{
-		if (++data->anim_tick >= 950)
+		if (++data->anim_tick >= 1200)
 		{
 			data->anim_tick = 0;
 			data->anim_frame = (data->anim_frame + 1) % 3;
@@ -118,14 +47,9 @@ int	game_loop(void *param)
 	if (data->last_key)
 		check_last_key(data);
 	obstacle_anim(data);
-	if (!data->collectable)
-	{
-		if (++data->exit_anim_tick >= 1200)
-		{
-			data->exit_anim_tick = 0;
-			exit_anim(data);
-		}
-	}
+	if (data->on_whirlpool)
+		redraw_player(data);
+	exit_anim_bonus(data);
 	return (0);
 }
 

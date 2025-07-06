@@ -1,5 +1,6 @@
 #include "so_long_bonus.h"
 
+// Initializes the frames for the player animations
 static void	initialize_frames(const char **frames)
 {
 	frames[0] = "assets/textures/Front/Front0.xpm";
@@ -16,6 +17,7 @@ static void	initialize_frames(const char **frames)
 	frames[11] = "assets/textures/Back/Back2.xpm";
 }
 
+// Initializes the textures for the game tiles
 static void	initialize_tiles(t_data *data)
 {
 	t_size	size;
@@ -44,18 +46,19 @@ static void	initialize_tiles(t_data *data)
 	}
 }
 
+// Initializes the obstacle animations
 static void	init_obstacle_anim(t_data *data)
 {
 	t_size	size;
 
 	data->obstacle[0] = mlx_xpm_file_to_image(data->mlx_ptr,
-			"assets/textures/obstacle.xpm", &size.wallx, &size.wally);
+			"assets/textures/Obstacle0.xpm", &size.wallx, &size.wally);
 	data->obstacle[1] = mlx_xpm_file_to_image(data->mlx_ptr,
-			"assets/textures/obstacle.xpm", &size.wallx, &size.wally);
+			"assets/textures/Obstacle1.xpm", &size.wallx, &size.wally);
 	data->obstacle[2] = mlx_xpm_file_to_image(data->mlx_ptr,
-			"assets/textures/obstacle.xpm", &size.wallx, &size.wally);
+			"assets/textures/Obstacle2.xpm", &size.wallx, &size.wally);
 	data->obstacle[3] = mlx_xpm_file_to_image(data->mlx_ptr,
-			"assets/textures/obstacle.xpm", &size.wallx, &size.wally);
+			"assets/textures/Obstacle3.xpm", &size.wallx, &size.wally);
 	if (!data->obstacle[0] || !data->obstacle[1] || !data->obstacle[2]
 		|| !data->obstacle[3])
 	{
@@ -64,6 +67,7 @@ static void	init_obstacle_anim(t_data *data)
 	}
 }
 
+// Loads the default tile theme for the game
 void	default_tile_theme(t_data *data)
 {
 	int			i;
@@ -85,4 +89,6 @@ void	default_tile_theme(t_data *data)
 	}
 	initialize_tiles(data);
 	init_obstacle_anim(data);
+	count_obstacle(data);
+	save_obstacles(data);
 }

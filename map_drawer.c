@@ -1,5 +1,20 @@
 #include "so_long.h"
 
+// Animations for the exit tile and obstacles
+void	exit_anim(t_data *data)
+{
+	if (!data->collectable)
+	{
+		if (++data->exit_anim_tick >= 1200)
+		{
+			data->exit_anim_tick = 0;
+			data->exit_anim = 1 - data->exit_anim;
+			draw_tile(data, 0, data->exitx, data->exity);
+			draw_tile(data, 5 + data->exit_anim, data->exitx, data->exity);
+		}
+	}
+}
+
 // returns tile defintion to draw
 int	get_tile_index(char c)
 {
@@ -59,13 +74,13 @@ void	ready_window_render(t_data *data)
 			&size.collectabley);
 	data->textures[4] = mlx_xpm_file_to_image(data->mlx_ptr,
 			"assets/textures/exit.xpm", &size.exitx, &size.exity);
-	data->textures[6] = mlx_xpm_file_to_image(data->mlx_ptr,
+	data->textures[5] = mlx_xpm_file_to_image(data->mlx_ptr,
 			"assets/textures/exit_1.xpm", &size.exitx, &size.exity);
-	data->textures[7] = mlx_xpm_file_to_image(data->mlx_ptr,
+	data->textures[6] = mlx_xpm_file_to_image(data->mlx_ptr,
 			"assets/textures/exit_2.xpm", &size.exitx, &size.exity);
 	if (!data->textures[0] || !data->textures[1] || !data->textures[2]
-		|| !data->textures[3] || !data->textures[4] || !data->textures[6]
-		|| !data->textures[7])
+		|| !data->textures[3] || !data->textures[4] || !data->textures[5]
+		|| !data->textures[6])
 	{
 		close_window(data, 0);
 		error_out('S', data->map, NULL, -1);

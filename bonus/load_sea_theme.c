@@ -1,5 +1,6 @@
 #include "so_long_bonus.h"
 
+// Initializes the frames for the player animations
 static void	initialize_frames(const char **frames)
 {
 	frames[0] = "assets/themes/Sea/Front/Front0.xpm";
@@ -16,6 +17,7 @@ static void	initialize_frames(const char **frames)
 	frames[11] = "assets/themes/Sea/Back/Back2.xpm";
 }
 
+// Initializes the textures for the game tiles
 static void	initialize_tiles(t_data *data)
 {
 	t_size	size;
@@ -44,6 +46,7 @@ static void	initialize_tiles(t_data *data)
 	}
 }
 
+// Initializes the obstacle animations
 static void	init_obstacle_anim(t_data *data)
 {
 	t_size	size;
@@ -64,6 +67,7 @@ static void	init_obstacle_anim(t_data *data)
 	}
 }
 
+// Loads the default tile theme for the game
 void	sea_tile_theme(t_data *data)
 {
 	int			i;
@@ -85,4 +89,6 @@ void	sea_tile_theme(t_data *data)
 	}
 	initialize_tiles(data);
 	init_obstacle_anim(data);
+	count_obstacle(data);
+	save_obstacles(data);
 }

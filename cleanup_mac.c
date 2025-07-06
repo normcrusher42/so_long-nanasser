@@ -36,7 +36,7 @@ void	exit_cleanup(t_data *data, int tick)
 		}
 		else
 		{
-			ft_printf("Saga not completed.. :(\n");
+			ft_printf("Saga incomplete.. :(\n");
 			ft_printf("You only had [\033[1;33m%d\033[0;37m] Fruits left...\n",
 				data->collectable);
 		}
