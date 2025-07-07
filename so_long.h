@@ -21,6 +21,7 @@
 #  define D				2
 #  define ON_MOUSE_DW	4
 #  define SPACE			49
+#  define ON_LINUX		0
 
 # else
 #  define ESC			65307
@@ -36,6 +37,7 @@
 #  define D				100
 #  define ON_MOUSE_DW	4
 #  define SPACE			65
+#  define ON_LINUX		1
 
 # endif
 

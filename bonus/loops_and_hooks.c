@@ -47,7 +47,7 @@ int	game_loop(void *param)
 	if (data->last_key)
 		check_last_key(data);
 	obstacle_anim(data);
-	if (data->on_whirlpool)
+	if (data->on_whirlpool && ON_LINUX)
 		redraw_player(data);
 	exit_anim_bonus(data);
 	return (0);
