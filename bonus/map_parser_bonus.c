@@ -75,7 +75,7 @@ char	**map_reader(char *file_path, t_data *data)
 	height = 0;
 	fd = open(file_path, O_RDONLY);
 	if (fd < 0 || filetype_check(file_path) == 0)
-		error_out('D', NULL, NULL, -1);
+		error_out('D', NULL, NULL, fd);
 	line = get_next_line(fd);
 	while (line)
 	{

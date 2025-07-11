@@ -103,6 +103,7 @@ void	validate_map(char **map, t_data *data)
 		error_out('G', map_cpy, NULL, -1);
 	}
 	free_map(map_cpy, NULL, -1);
+	map_cpy = NULL;
 	map_cpy = dup_map(map);
 	flood_fill(map_cpy, data->playerx, data->playery, ' ');
 	if (!goals_reachable(map_cpy, 'E'))
@@ -111,4 +112,5 @@ void	validate_map(char **map, t_data *data)
 		error_out('G', map_cpy, NULL, -1);
 	}
 	free_map(map_cpy, NULL, -1);
+	map_cpy = NULL;
 }

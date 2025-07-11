@@ -25,6 +25,16 @@ void	free_map(char **map, char *line, int fd)
 	}
 }
 
+static void check_if_null(char **map, char *line, int fd)
+{
+	if (line)
+		free_map(NULL, line, fd);
+	if (map)
+		free_map(map, NULL, -1);
+	if (fd >= 0)
+		close(fd);
+}
+
 // Main error output and parser cleanup
 void	error_out(char error_sign, char **map, char *line, int fd)
 {
@@ -47,9 +57,6 @@ void	error_out(char error_sign, char **map, char *line, int fd)
 		perror("Play the game bro its free Wallahi there's no transactions");
 	else if (error_sign == 'G')
 		perror("Ur goals are just a teensy bit out of your reach.");
-	if (line)
-		free_map(NULL, line, fd);
-	if (map)
-		free_map(map, NULL, -1);
+	check_if_null(map, line, fd);
 	exit(1);
 }
