@@ -20,6 +20,9 @@ static void	create_window(t_data *data)
 		close_window(data, 0);
 		error_out('S', data->map, NULL, -1);
 	}
+	mlx_int_anti_resize_win(data->mlx_ptr,
+		((t_win_list *)data->win_ptr)->window, data->img_width * data->mapx,
+		data->img_height * data->mapy);
 }
 
 // just a silly exit error message for lengthy/short args

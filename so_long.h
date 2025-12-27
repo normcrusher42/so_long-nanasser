@@ -7,6 +7,7 @@
 # include <stdio.h>
 # include "mlx/mlx.h"
 # include <stdbool.h>
+# include "mlx_int.h"
 
 // Keybinds Definers //
 # ifdef __APPLE__
